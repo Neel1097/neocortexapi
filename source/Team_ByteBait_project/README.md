@@ -16,3 +16,9 @@ This project is created by the joint efforts of
 Hierarchical temporal memory (HTM):
 
 Hierarchical temporal memory (HTM) provides a theoretical framework that models several key computational principles of the neocortex. This paper analyzes an important component of HTM, the HTM spatial pooler (SP). The HTM spatial pooler represents a neurally inspired learning algorithm for creating sparse representations from noisy data streams in an online fashion. It models how neurons learn feedforward connections and form efficient representations of the input. It converts arbitrary binary input patterns into sparse distributed representations (SDRs) using a combination of competitive Hebbian learning rules and homeostatic excitability control. (Source: https://www.numenta.com/resources/research-publications/papers/htm-spatial-pooler-neocortical-algorithm-for-online-sparse-distributed-coding/)
+ ## Problem Statement : 
+ Spatial Pooler converts the input into the SDR. The new version of the neocortexapi provides a method Reconstruct (), which performs the inverse function of the SP. It reconstructs the input from the input. Your task is to create an experiment which demonstrates how the reconstruction works. The experiment will first learn the spatial input (both numbers and images), and then, after the SP has entered the stable state, it will start the reconstruction of all learned patterns.
+The experiment should show visually and mathematically the difference between the input and reconstructed pattern.
+Visualize result. Provide multiple experiments using numerical (use scalarencoder) and image inputs (use binarizer).
+Represent the difference between input and output mathematically.
+Ref: Method Reconstruct in SpatialPooler.cs.
