@@ -11,4 +11,4 @@
 This project is created by the joint efforts of
 * [Subham Singh](https://github.com/Subham2901)
 * [Amit Maity](https://github.com/Neel1097)
-* [Rubi Kiran]()
+* [Rubi Kiran](https://github.com/RubiKirann)
