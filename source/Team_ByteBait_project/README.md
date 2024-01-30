@@ -5,9 +5,9 @@
 ## Overview
 * [Contributors](#Contributors)
 * [Problem Statement](#Problem)
-* [Sparse Distributed Representation(SDR)](#Sparse_Distributed_Representation(SDR))
-* [Hierarchical temporal memory (HTM)](#Hierarchical_temporal_memory (HTM))
-* [Reconstructing the SP algorithm](#Reconstructing_the_SP_algorithm)
+* [Sparse Distributed Representation(SDR)](#Sparse-Distributed-Representation(SDR))
+* [Hierarchical temporal memory (HTM)](#Hierarchical-temporal=memory-(HTM))
+* [Reconstructing the SP algorithm](#Reconstructing-the-SP-algorithm)
 
 
 This project is created by the joint efforts of
