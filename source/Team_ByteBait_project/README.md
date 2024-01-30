@@ -5,7 +5,7 @@
 ## Overview
 * [Contributors](#Contributers)
 * [Problem Statement](#Problem-Statement)
-* [Sparse Distributed Representation(SDR)](#Sparse-Distributed-Representation(SDR))
+* [Sparse Distributed Representation(SDR)](#Sparse-Distributed-Representation-(SDR))
 * [Hierarchical temporal memory (HTM)](#Hierarchical-temporal-memory-(HTM))
 * [Reconstructing the SP algorithm](#Reconstructing-the-SP-algorithm)
 
