@@ -3,7 +3,7 @@
 ![Built With - ❤️](https://img.shields.io/badge/Built_With-❤️-2ea44f?style=for-the-badge&logo=Love)
 ### An experiment to demonstrate how the reconstruction method recreates the images and texts learnt by the Spatial Pooler method using C#.
 ## Overview
-* [Contributors](#Contributors)
+* [Contributors](#Contributers:)
 * [Problem Statement](#Problem)
 * [Sparse Distributed Representation(SDR)](#Sparse-Distributed-Representation(SDR))
 * [Hierarchical temporal memory (HTM)](#Hierarchical-temporal-memory-(HTM))
