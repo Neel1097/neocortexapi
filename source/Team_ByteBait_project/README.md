@@ -39,5 +39,12 @@ Here is an example from the NuPIC Github repo:
 
 ![Capture](https://github.com/Neel1097/Team-ByteBaite_neocortexapi/assets/60136654/642e46ce-1018-4ea3-a278-2854aca7af32)
 
+## Spatial Pooler Overview: 
+In the HTM framework, the Spatial Pooler (SP) is a component responsible for creating sparse distributed representations (SDR) of input data. The primary goal of the Spatial Pooler is to transform input patterns into a stable and sparse representation that can be easily used by subsequent stages of the neural network.  
+Here's a simplified explanation of the Spatial Pooler's function in the HTM context:
+1. Input Encoding: The SP takes in spatially and temporally encoded input patterns.
+2. SDR: The SP transforms the dense input patterns into an SDR. These are characterized by the activation of only a small percentage of units, which helps in efficient memory usage and pattern recognition.
+3. Stability and Invariance: The SP aims to create stable representations, and also helps in achieving some degree of invariance, making the network robust to variations in input.
+
 
 
