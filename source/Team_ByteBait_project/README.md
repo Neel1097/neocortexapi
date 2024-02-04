@@ -25,7 +25,10 @@ Represent the difference between input and output mathematically.
 Ref: Method Reconstruct in SpatialPooler.cs.
 
   ## Introduction :
-  In this project, an experiment is performed that makes us indulge with the knowledge of spatial pooler,an integral component in the neocortexapi. The Spatial Pooler plays a pivotal role in converting input into Sparse Distributed Representations (SDRs), the newly updated version of the neocortexapi provided us with a highly efficient working model of a method called as reconstruct(), which is capable to perform the inverse fuction of the spatial pooler.
+ 
+ In this project, an experiment is performed that makes us indulge with the knowledge of spatial pooler,an integral component in the neocortexapi. The Spatial Pooler plays a pivotal role in converting input into Sparse Distributed Representations (SDRs), the newly updated version of the neocortexapi provided us with a highly efficient working model of a method called as reconstruct(), which is capable to perform the inverse fuction of the spatial pooler.
+The ultimate goal of this experiment is to reconstruct the input provided to the spatial pooler through scalar encoders for numerical inputs and image binarizer for pictorial data. The entire experiment is performed in two sections, initially a scalar encoder or image binariser is used to feed into the spatial pooler such that it can produce the SDR and reach a stable state and once the program reaches a stable state and the initiation of the next section begins, where the output from the Spatial Pooler fucntion is fed into the reconstruct method to verify and test the accuracy of the reconstruct method.
+ The final step of the experiment is to draw comparissions by using different metirces which can compare the similarity of the numbers or the images that was fed into the encoders with the final output received from the reconstruct() method.
   
   ## Sparse Distributed Representation:
 According to recent findings in neuroscience, the brain processes information using Sparse Distributed Representations. This is true for all mammals, from mice to humans. These SDRs are the key to a better understanding of the brain’s computational approach. SDRs visualize the information processed by the brain at a given moment, each active cell bearing some semantic aspect of the overall message. 
