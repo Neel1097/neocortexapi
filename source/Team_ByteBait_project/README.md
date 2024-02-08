@@ -1,0 +1,53 @@
+# Project Title: ML 23/24-04 Implement the Spatial Pooler SDR Reconstruction
+[![Made with - C#](https://img.shields.io/badge/Made_with-C%23-2ea44f?style=for-the-badge&logo=C%23)](https://learn.microsoft.com/en-us/dotnet/csharp/)
+![Built With - ❤️](https://img.shields.io/badge/Built_With-❤️-2ea44f?style=for-the-badge&logo=Love)
+### An experiment to demonstrate how the reconstruction method recreates the images and texts learnt by the Spatial Pooler method using C#.
+## Overview
+* [Contributors](#Contributors)
+* [Problem Statement](#Problem)
+* [Sparse Distributed Representation(SDR)](#Sparse_Distributed_Representation(SDR))
+* [Hierarchical temporal memory (HTM)](#Hierarchical_temporal_memory (HTM))
+* [Reconstructing the SP algorithm](#Reconstructing_the_SP_algorithm)
+
+
+This project is created by the joint efforts of
+* [Subham Singh](https://github.com/Subham2901)
+* [Amit Maity](https://github.com/Neel1097)
+* [Rubi Kiran](https://github.com/RubiKirann)
+
+ ## Problem Statement : 
+ Spatial Pooler converts the input into the SDR. The new version of the neocortexapi provides a method Reconstruct (), which performs the inverse function of the SP. It reconstructs the input from the input. Your task is to create an experiment which demonstrates how the reconstruction works. The experiment will first learn the spatial input (both numbers and images), and then, after the SP has entered the stable state, it will start the reconstruction of all learned patterns.
+The experiment should show visually and mathematically the difference between the input and reconstructed pattern.
+Visualize result. Provide multiple experiments using numerical (use scalarencoder) and image inputs (use binarizer).
+Represent the difference between input and output mathematically.
+Ref: Method Reconstruct in SpatialPooler.cs.
+
+ ## Sparse Distributed Representation(SDR) :
+According to recent findings in neuroscience, the brain processes information using Sparse Distributed Representations. This is true for all mammals, from mice to humans. These SDRs are the key to a better understanding of the brain’s computational approach. SDRs visualize the information processed by the brain at a given moment, each active cell bearing some semantic aspect of the overall message. 
+Sparse means that only a few of the many (thousands of) neurons are active at the same time, in contrast to the typical “dense” representation, in computers, of a few bits of 0s and 1s. Distributed means that not only are the active cells spread across the representation, but the significance of the pattern is too. This makes the SDR resilient to the failure of single neurons and allows sub-sampling. As each bit or neuron has a meaning, if the same bit is active in two SDRs, it means that they are semantically similar: that is the key to our computational approach. (Source:https://www.cortical.io/science/sparse-distributed-representations/?highlight=SDR )
+
+ ## Hierarchical temporal memory (HTM) :
+
+Hierarchical temporal memory (HTM) provides a theoretical framework that models several key computational principles of the neocortex. This paper analyzes an important component of HTM, the HTM spatial pooler (SP). The HTM spatial pooler represents a neurally inspired learning algorithm for creating sparse representations from noisy data streams in an online fashion. It models how neurons learn feedforward connections and form efficient representations of the input. It converts arbitrary binary input patterns into sparse distributed representations (SDRs) using a combination of competitive Hebbian learning rules and homeostatic excitability control. (Source: https://www.numenta.com/resources/research-publications/papers/htm-spatial-pooler-neocortical-algorithm-for-online-sparse-distributed-coding/)
+
+![spatialpooler](https://github.com/Neel1097/Team-ByteBaite_neocortexapi/assets/60136654/b8b2db0b-3935-46cc-a203-5a3b6c22e68d)
+
+ ## Reconstructing the SP algorithm :
+  To “Reconstruct the SP algorithm” you could use the information of the connected synapses lying in the SP data structure. The first step would be to get the synapses with the function getConnectedSynapses.
+
+Here is an example from the NuPIC Github repo:
+
+![Capture](https://github.com/Neel1097/Team-ByteBaite_neocortexapi/assets/60136654/642e46ce-1018-4ea3-a278-2854aca7af32)
+
+## Spatial Pooler Overview: 
+In the HTM framework, the Spatial Pooler (SP) is a component responsible for creating sparse distributed representations (SDR) of input data. The primary goal of the Spatial Pooler is to transform input patterns into a stable and sparse representation that can be easily used by subsequent stages of the neural network.  
+Here's a simplified explanation of the Spatial Pooler's function in the HTM context:
+1. Input Encoding: The SP takes in spatially and temporally encoded input patterns.
+2. SDR: The SP transforms the dense input patterns into an SDR. These are characterized by the activation of only a small percentage of units, which helps in efficient memory usage and pattern recognition.
+3. Stability and Invariance: The SP aims to create stable representations, and also helps in achieving some degree of invariance, making the network robust to variations in input.
+# Phases of SP:
+The SP consists of three phases, namely overlap, inhibition, and learning. Within an SP, there exist many columns. Each column has a unique set of proximal synapses connected via a proximal dendrite segment. Each proximal synapse tentatively connects to a single column from the input, i.e., each column in the SP connects to a specific attribute within the input. The input column’s activity level is used as the synaptic input, i.e., an active column is a “1” and an inactive column is a “0”.
+To determine whether a synapse is connected or not, the synapse’s permanence value is checked. If the permanence value is at least equal to the connected threshold the synapse is connected; otherwise, it is unconnected. The permanence values are scalars in the closed interval [0,1]. Source:https://www.frontiersin.org/articles/10.3389/fncom.2017.00111/full
+
+
+
