@@ -7,9 +7,12 @@
 * [Contributors](#Contributers)
 * [Problem Statement](#Problem-Statement)
 * [Introduction](#Introduction)
-* [Sparse Distributed Representation(SDR)](#Sparse-Distributed-Representation)
-* [Hierarchical temporal memory (HTM)](#Hierarchical-temporal-memory)
+* [Sparse Distributed Representation](#Sparse-Distributed-Representation)
+* [Hierarchical temporal memory (HTM)](#Hierarchical-temporal-memory-(HTM))
+* [HTM Encoder](#HTM-Encoder)
+* [The Encoding Process](#The-Encoding-Process)
 * [Reconstructing the SP algorithm](#Reconstructing-the-SP-algorithm)
+* [Phases of SP](#Phases-of-SP)
   
 ## Contributers:
 
@@ -30,7 +33,7 @@ Ref: Method Reconstruct in SpatialPooler.cs.
 The ultimate goal of this experiment is to reconstruct the input provided to the spatial pooler through scalar encoders for numerical inputs and image binarizer for pictorial data. The entire experiment is performed in two sections, initially a scalar encoder or image binariser is used to feed into the spatial pooler such that it can produce the SDR and reach a stable state and once the program reaches a stable state and the initiation of the next section begins, where the output from the Spatial Pooler fucntion is fed into the reconstruct method to verify and test the accuracy of the reconstruct method.
  The final step of the experiment is to draw comparissions by using different metirces which can compare the similarity of the numbers or the images that was fed into the encoders with the final output received from the reconstruct() method.
  
- ## Sparse Distributed Representation(SDR):
+ ## Sparse Distributed Representation:
 
 According to recent findings in neuroscience, the brain processes information using Sparse Distributed Representations. This is true for all mammals, from mice to humans. These SDRs are the key to a better understanding of the brain’s computational approach. SDRs visualize the information processed by the brain at a given moment, each active cell bearing some semantic aspect of the overall message. 
 Sparse means that only a few of the many (thousands of) neurons are active simultaneously, in contrast to the typical “dense” representation, in computers, of a few bits of 0s and 1s. Distributed means that not only are the active cells spread across the representation, but the significance of the pattern is too. This makes the SDR resilient to the failure of single neurons and allows sub-sampling. As each bit or neuron has a meaning, if the same bit is active in two SDRs, it means that they are semantically similar: that is the key to our computational approach. (Source:https://www.cortical.io/science/sparse-distributed-representations/?highlight=SDR )
