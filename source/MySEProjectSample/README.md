@@ -21,7 +21,6 @@ This project is created by the joint efforts of
 * [Amit Maity](https://github.com/Neel1097)
 * [Rubi Kiran](https://github.com/RubiKirann)
 
-  **[Go to top &uarr;](#Overview)**
 
  ## Problem Statement: 
  Spatial Pooler converts the input into the SDR. The new version of the neocortexapi provides a method Reconstruct (), which performs the inverse function of the SP. It reconstructs the input from the input. Your task is to create an experiment that shows how the reconstruction works. The experiment will first learn the spatial input (both numbers and images), and then, after the SP has entered the stable state, it will start the reconstruction of all learned patterns.
