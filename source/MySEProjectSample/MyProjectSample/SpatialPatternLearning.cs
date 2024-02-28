@@ -34,7 +34,7 @@ namespace NeoCortexApiSample
             // We will build a slice of the cortex with the given number of mini-columns
             int numColumns = 1024;
 
-            //
+            
             // This is a set of configuration parameters used in the experiment.
             HtmConfig cfg = new HtmConfig(new int[] { inputBits }, new int[] { numColumns })
             {
@@ -56,7 +56,7 @@ namespace NeoCortexApiSample
 
             double max = 150;
 
-            //
+            
             // This dictionary defines a set of typical encoder parameters.
             Dictionary<string, object> settings = new Dictionary<string, object>()
             {
@@ -73,7 +73,7 @@ namespace NeoCortexApiSample
 
             EncoderBase encoder = new NeoCortexApi.Encoders.ScalarEncoder(settings);
 
-            //
+            
             // We create here 100 random input values.
             List<double> inputValues = new List<double>();
 
@@ -100,7 +100,7 @@ namespace NeoCortexApiSample
 
             bool isInStableState = false;
 
-            //
+            
             // HPC extends the default Spatial Pooler algorithm.
             // The purpose of HPC is to set the SP in the new-born stage at the begining of the learning process.
             // In this stage the boosting is very active, but the SP behaves instable. After this stage is over
@@ -156,7 +156,7 @@ namespace NeoCortexApiSample
             // Will hold the similarity of SDKk and SDRk-1 fro every input.
             Dictionary<double, double> prevSimilarity = new Dictionary<double, double>();
 
-            //
+            
             // Initiaize start similarity to zero.
             foreach (var input in inputs)
             {
@@ -164,8 +164,8 @@ namespace NeoCortexApiSample
                 prevActiveCols.Add(input, new int[0]);
             }
 
-            // Learning process will take 1000 iterations (cycles)
-            int maxSPLearningCycles = 100;
+            // Learning process will take 450 iterations (cycles)
+            int maxSPLearningCycles = 450;
 
             int numStableCycles = 0;
 
@@ -173,7 +173,7 @@ namespace NeoCortexApiSample
             {
                 Debug.WriteLine($"Cycle  ** {cycle} ** Stability: {isInStableState}");
 
-                //
+                
                 // This trains the layer on input pattern.
                 foreach (var input in inputs)
                 {
