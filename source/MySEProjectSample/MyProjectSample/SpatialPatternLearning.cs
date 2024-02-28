@@ -83,8 +83,9 @@ namespace NeoCortexApiSample
             }
 
             var sp = RunExperiment(cfg, encoder, inputValues);
+            RunRustructuringExperiment(sp, encoder, inputValues);
 
-          
+
         }
         /// <summary>
         /// Implements the experiment.
@@ -207,6 +208,25 @@ namespace NeoCortexApiSample
             }
 
             return sp;
+
+            private void RunRustructuringExperiment(SpatialPooler sp, EncoderBase encoder, List<double> inputValues)
+            {
+                //Connections c = new Connections(); Shall we try this???
+                SPSdrReconstructor x = new SPSdrReconstructor();
+                foreach (var input in inputValues)
+                {
+                    var inpSdr = encoder.Encode(input);
+
+                    var actCols = sp.Compute(inpSdr, false);
+
+
+                    var probabilities = x.Reconstruct(actCols);
+
+                    Debug.WriteLine($"Input: {input} SDR: {Helpers.StringifyVector(actCols)}");
+
+                    Debug.WriteLine($"Input: {input} SDR: {Helpers.StringifyVector(actCols)}");
+                }
+            }
         }
     }
 }
