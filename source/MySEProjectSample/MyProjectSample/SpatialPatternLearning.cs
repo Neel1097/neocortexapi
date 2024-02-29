@@ -101,7 +101,7 @@ namespace NeoCortexApiSample
 
             bool isInStableState = false;
 
-            
+
             // HPC extends the default Spatial Pooler algorithm.
             // The purpose of HPC is to set the SP in the new-born stage at the begining of the learning process.
             // In this stage the boosting is very active, but the SP behaves instable. After this stage is over
@@ -157,7 +157,7 @@ namespace NeoCortexApiSample
             // Will hold the similarity of SDKk and SDRk-1 fro every input.
             Dictionary<double, double> prevSimilarity = new Dictionary<double, double>();
 
-            
+
             // Initiaize start similarity to zero.
             foreach (var input in inputs)
             {
@@ -166,7 +166,7 @@ namespace NeoCortexApiSample
             }
 
             // Learning process will take 450 iterations (cycles)
-            int maxSPLearningCycles = 450;
+            int maxSPLearningCycles = 5;
 
             int numStableCycles = 0;
 
@@ -174,7 +174,7 @@ namespace NeoCortexApiSample
             {
                 Debug.WriteLine($"Cycle  ** {cycle} ** Stability: {isInStableState}");
 
-                
+
                 // This trains the layer on input pattern.
                 foreach (var input in inputs)
                 {
@@ -208,11 +208,11 @@ namespace NeoCortexApiSample
             }
 
             return sp;
-
-            private void RunRustructuringExperiment(SpatialPooler sp, EncoderBase encoder, List<double> inputValues)
+        }
+        private void RunRustructuringExperiment(SpatialPooler sp, EncoderBase encoder, List<double> inputValues)
             {
-                //Connections c = new Connections(); Shall we try this???
-                SPSdrReconstructor x = new SPSdrReconstructor();
+                Connections c = new Connections(); //Shall we try this???
+                SPSdrReconstructor x = new SPSdrReconstructor(c);
                 foreach (var input in inputValues)
                 {
                     var inpSdr = encoder.Encode(input);
@@ -227,6 +227,6 @@ namespace NeoCortexApiSample
                     Debug.WriteLine($"Input: {input} SDR: {Helpers.StringifyVector(actCols)}");
                 }
             }
-        }
+        
     }
 }
