@@ -581,10 +581,5 @@ namespace NeoCortexApi
 
             return connectedCells;
         }
-
-        public static object StringifyVector(Dictionary<int, double> probabilities)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
