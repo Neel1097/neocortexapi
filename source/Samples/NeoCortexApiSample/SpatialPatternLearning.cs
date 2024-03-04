@@ -1,4 +1,5 @@
-﻿using NeoCortexApi;
+﻿using NeoCortex;
+using NeoCortexApi;
 using NeoCortexApi.Encoders;
 using NeoCortexApi.Entities;
 using NeoCortexApi.Network;
@@ -6,6 +7,8 @@ using NeoCortexApi.Utility;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 
 namespace NeoCortexApiSample
@@ -45,13 +48,13 @@ namespace NeoCortexApiSample
                 PotentialRadius = (int)(0.15 * inputBits),
                 LocalAreaDensity = -1,
                 ActivationThreshold = 10,
-                
+
                 MaxSynapsesPerSegment = (int)(0.01 * numColumns),
                 Random = new ThreadSafeRandom(42),
-                StimulusThreshold=10,
+                StimulusThreshold = 10,
             };
 
-            double max = 150;
+            double max = 250;
 
             //
             // This dictionary defines a set of typical encoder parameters.
@@ -71,7 +74,7 @@ namespace NeoCortexApiSample
             EncoderBase encoder = new ScalarEncoder(settings);
 
             //
-            // We create here 100 random input values.
+            // We create here 250 random input values.
             List<double> inputValues = new List<double>();
 
             for (int i = 0; i < (int)max; i++)
@@ -81,10 +84,11 @@ namespace NeoCortexApiSample
 
             var sp = RunExperiment(cfg, encoder, inputValues);
 
-            //RunRustructuringExperiment(sp, encoder, inputValues);
+
+            RunRustructuringExperiment(sp, encoder, inputValues);
         }
 
-       
+
 
         /// <summary>
         /// Implements the experiment.
@@ -211,62 +215,52 @@ namespace NeoCortexApiSample
 
         private void RunRustructuringExperiment(SpatialPooler sp, EncoderBase encoder, List<double> inputValues)
         {
+            //Creating a directory to save the output
+            string outFolder = "outputFolder";
+            Directory.Delete(outFolder, true);
+            Directory.CreateDirectory(outFolder);
+
             foreach (var input in inputValues)
             {
                 var inpSdr = encoder.Encode(input);
+
+                int[,] twoDimenArray = ArrayUtils.Make2DArray<int>(inpSdr, (int)Math.Sqrt(inpSdr.Length), (int)Math.Sqrt(inpSdr.Length));
+                var twoDimArray = ArrayUtils.Transpose(twoDimenArray);
+
+                NeoCortexUtils.DrawBitmap(twoDimArray, 1024, 1024, $"{outFolder}\\{input}.png", Color.Gray, Color.Green, text: null);
 
                 var actCols = sp.Compute(inpSdr, false);
 
                 var probabilities = sp.Reconstruct(actCols);
 
-                Debug.WriteLine($"Input: {input} SDR: {Helpers.StringifyVector(actCols)}");
+                //Gathering the permancences & applying threshold and analyzing it
 
-                Debug.WriteLine($"Input: {input} SDR: {Helpers.StringifyVector(actCols)}");
+                Dictionary<int, double>.ValueCollection values = probabilities.Values;
+                int[] thresholdvalues = new int[inpSdr.Length];
+
+                //keys for the dictionary of thresholdvalues
+                int key = 0; 
+
+                // Just declared the variable for segrigating values between 0 and 1 and to change the threshold value
+                var thresholds = 2;    
+
+                foreach (var val in values)
+                {
+                    if (val > thresholds)
+                    {
+                        thresholdvalues[key] = 1;
+                        key++;
+                    }
+                    else
+                    {
+                        thresholdvalues[key] = 0;
+                        key++;
+                    }
+
+
+                }
+
             }
         }
     }
 }
-//BinarizerParams binarizerParams = new BinarizerParams
-            //{
-            //    RedThreshold = 200,
-            //    GreenThreshold = 200,
-            //    BlueThreshold = 200,
-            //    ImageWidth = 64,  // Set the desired width of the output image
-            //    ImageHeight = 64, // Set the desired height of the output image
-            //                      // ... other parameters
-            //};
-
-            //ImageBinarizer imageBinarizer = new ImageBinarizer(binarizerParams);
-
-            //binarizerParams.InputImagePath = "C:\\Users\\amit\\Pictures\\Screenshots\\Capture.png";
-            //imageBinarizer.Run(); // its not working
-
-
-
-
-
-        }
-        //..Trying to Implement Image Binarizer
-        public class ImageBinarization()
-{
-    //.. Replace "inputImage.jpg" with the path to your input image
-    string inputImagePath = "C:\\Users\\amit\\Pictures\\Screenshots\\ABC.png";
-
-    //.. Set the binarization threshold (adjust as needed)
-    int threshold = 128;
-
-    // ..Instantiate the class
-    ImageBinarization imageBinarization = new ImageBinarization();
-
-    //.. Get the binary values as a 2D array
-    int[,] binaryValues = imageBinarization.BinarizeAndGetValues(inputImagePath, threshold);
-
-
-
-    //..
-    imageBinarization.PrintBinaryValues(binaryValues);
-
-
-        }
-
-
