@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.NetworkInformation;
 
 namespace NeoCortexApiSample
 {
@@ -18,7 +19,7 @@ namespace NeoCortexApiSample
     {
         public void Run()
         {
-            Console.WriteLine($"Hello NeocortexApi! Experiment {nameof(SpatialPatternLearning)}");
+            Console.WriteLine($"Welcome to the Project by the team BaitByte \n Project Title: ML 23/24-04 Implement the Spatial Pooler SDR Reconstruction \n Name of the team members :\n i. Subham Singh\n ii. Amit Maity \n iii. Rubi Kiran");
 
             // Used as a boosting parameters
             // that ensure homeostatic plasticity effect.
@@ -245,9 +246,9 @@ namespace NeoCortexApiSample
 
 
 
-        }
+        
         //..Trying to Implement Image Binarizer
-        public class ImageBinarization()
+   /*     public class ImageBinarization()
 {
     //.. Replace "inputImage.jpg" with the path to your input image
     string inputImagePath = "C:\\Users\\amit\\Pictures\\Screenshots\\ABC.png";
@@ -267,6 +268,6 @@ namespace NeoCortexApiSample
     imageBinarization.PrintBinaryValues(binaryValues);
 
 
-        }
+        }*/
 
 
