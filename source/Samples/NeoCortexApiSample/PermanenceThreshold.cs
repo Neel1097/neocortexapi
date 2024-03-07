@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace NeoCortexApiSample
+public class PermanenceThreshold
 {
-    internal class PermanenceThreshold
+    public static double ApplyThreshold(double permanence)
     {
+        const double threshold = 0.5;
+
+        // Apply threshold logic
+        return permanence < threshold ? 0.0 : 1.0;
     }
 }
