@@ -10,4 +10,9 @@ public class PermanenceThreshold
         // Apply threshold logic
         return permanence < threshold ? 0.0 : 1.0;
     }
+    public static Dictionary<int, double> ApplyThreshold(Dictionary<int, double> permanences)
+    {
+        // Apply threshold logic to each value in the dictionary
+        return permanences.ToDictionary(kvp => kvp.Key, kvp => ApplyThreshold(kvp.Value));
+    }
 }
