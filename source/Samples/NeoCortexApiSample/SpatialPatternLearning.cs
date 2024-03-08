@@ -228,16 +228,26 @@ namespace NeoCortexApiSample
         //Implementing the image Binarizier
         public class ImageBinarization()
         {
+            //.. Replace "inputImage.jpg" with the path to your input image
             string inputImagePath = "C:\\Users\\amit\\Pictures\\Screenshots\\ABC.png";
+
+            //.. Set the binarization threshold (adjust as needed)
+            int threshold = 128;
 
             // ..Instantiate the class
             ImageBinarization imageBinarization = new ImageBinarization();
 
             //.. Get the binary values as a 2D array
-            int[,] binaryValues = imageBinarization.BinarizeAndGetValues(inputImagePath);
+            int[,] binaryValues = imageBinarization.BinarizeAndGetValues(inputImagePath, threshold);
 
+
+
+            //..
             imageBinarization.PrintBinaryValues(binaryValues);
+
+
     }
+
 
 
     }
