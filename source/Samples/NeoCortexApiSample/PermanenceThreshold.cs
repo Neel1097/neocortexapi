@@ -5,7 +5,7 @@ public class PermanenceThreshold
 {
     public static double ApplyThreshold(double permanence)
     {
-        const double threshold = 0.5;
+        const double threshold = 0.6;
 
         // Apply threshold logic
         return permanence < threshold ? 0.0 : 1.0;
