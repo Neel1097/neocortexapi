@@ -1,31 +1,16 @@
 ﻿using System;
+using System.Drawing;
+using NeoCortex;
+using NeoCortexApi.Utility;
 
-public static class BitmapVisualizer
+public class BitmapVisualizer
 {
-    public static void VisualizeBitmap(int[] inputBitmap, int[] reconstructedBitmap)
+    public static void GenerateAndDrawBitmap(int[] inputData, string outputPath, string text = null)
     {
-        Console.WriteLine("Input Bitmap:");
-        PrintBitmap(inputBitmap);
+        int sideLength = (int)Math.Sqrt(inputData.Length);
+        int[,] twoDimenArray = ArrayUtils.Make2DArray<int>(inputData, sideLength, sideLength);
+        var twoDimArray = ArrayUtils.Transpose(twoDimenArray);
 
-        Console.WriteLine("\nReconstructed Bitmap:");
-        PrintBitmap(reconstructedBitmap);
-    }
-
-    private static void PrintBitmap(int[] bitmap)
-    {
-        const char activeSymbol = 'x'; // Character to represent active (1) bits
-        const char inactiveSymbol = '.'; // Character to represent inactive (0) bits
-
-        int width = 20; // Adjust this based on the width of your bitmaps
-
-        for (int i = 0; i < bitmap.Length; i++)
-        {
-            Console.Write(bitmap[i] == 1 ? activeSymbol : inactiveSymbol);
-
-            if ((i + 1) % width == 0)
-            {
-                Console.WriteLine();
-            }
-        }
+        NeoCortexUtils.DrawBitmap(twoDimArray, 1024, 1024, outputPath, Color.Gray, Color.Green, text: text);
     }
 }

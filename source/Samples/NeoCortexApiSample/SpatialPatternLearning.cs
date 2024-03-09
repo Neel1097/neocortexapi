@@ -53,7 +53,6 @@ namespace NeoCortexApiSample
 
             double max = 100;
 
-            //
             // This dictionary defines a set of typical encoder parameters.
             Dictionary<string, object> settings = new Dictionary<string, object>()
             {
@@ -66,7 +65,6 @@ namespace NeoCortexApiSample
                 { "ClipInput", false},
                 { "MaxVal", max}
             };
-
 
             EncoderBase encoder = new ScalarEncoder(settings);
 
@@ -83,8 +81,6 @@ namespace NeoCortexApiSample
 
             RunRustructuringExperiment(sp, encoder, inputValues);
         }
-
-
 
         /// <summary>
         /// Implements the experiment.
