@@ -225,49 +225,35 @@ namespace NeoCortexApiSample
                 Debug.WriteLine($"Input: {input} SDR: {Helpers.StringifyVector(actCols)}");
             }
         }
+
+
+ //Implementing the image Binarizier
+        public class ImageBinarization()
+        {
+            //.. Replace "inputImage.jpg" with the path to your input image
+            string inputImagePath = "C:\\Users\\amit\\Pictures\\Screenshots\\ABC.png";
+
+
+            //.. Set the binarization threshold (adjust as needed)
+            int threshold = 128;
+
+            // ..Instantiate the class
+            ImageBinarization imageBinarization = new ImageBinarization();
+
+            //.. Get the binary values as a 2D array
+            int[,] binaryValues = imageBinarization.BinarizeAndGetValues(inputImagePath, threshold);
+
+
+
+            //..
+            imageBinarization.PrintBinaryValues(binaryValues);
+
+
+
     }
-}
-//BinarizerParams binarizerParams = new BinarizerParams
-            //{
-            //    RedThreshold = 200,
-            //    GreenThreshold = 200,
-            //    BlueThreshold = 200,
-            //    ImageWidth = 64,  // Set the desired width of the output image
-            //    ImageHeight = 64, // Set the desired height of the output image
-            //                      // ... other parameters
-            //};
-
-            //ImageBinarizer imageBinarizer = new ImageBinarizer(binarizerParams);
-
-            //binarizerParams.InputImagePath = "C:\\Users\\amit\\Pictures\\Screenshots\\Capture.png";
-            //imageBinarizer.Run(); // its not working
 
 
 
 
-
-        
-        //..Trying to Implement Image Binarizer
-   /*     public class ImageBinarization()
-{
-    //.. Replace "inputImage.jpg" with the path to your input image
-    string inputImagePath = "C:\\Users\\amit\\Pictures\\Screenshots\\ABC.png";
-
-    //.. Set the binarization threshold (adjust as needed)
-    int threshold = 128;
-
-    // ..Instantiate the class
-    ImageBinarization imageBinarization = new ImageBinarization();
-
-    //.. Get the binary values as a 2D array
-    int[,] binaryValues = imageBinarization.BinarizeAndGetValues(inputImagePath, threshold);
-
-
-
-    //..
-    imageBinarization.PrintBinaryValues(binaryValues);
-
-
-        }*/
-
-
+    }
+} 
