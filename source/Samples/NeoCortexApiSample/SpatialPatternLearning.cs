@@ -216,7 +216,7 @@ namespace NeoCortexApiSample
                 var probabilities = sp.Reconstruct(actCols);
                 var thresholdedProbabilities = PermanenceThreshold.ApplyThreshold(probabilities);
 
-                BitmapVisualizer.VisualizeBitmap(inpSdr, thresholdedProbabilities);
+              //  BitmapVisualizer.VisualizeBitmap(inpSdr, thresholdedProbabilities);
 
                 Console.WriteLine(new string('-', 50)); // Separator for better readability
                 // Print the reconstructed input and active columns
