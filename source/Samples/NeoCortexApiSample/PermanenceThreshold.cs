@@ -9,7 +9,22 @@ public class PermanenceThreshold
         int key = 0;
 
         // Just declared the variable for segregating values between 0 and 1 and to change the threshold value
+       
         var thresholds = 2;
+
+        foreach (var val in values)
+        {
+            if (val > thresholds)
+            {
+                thresholdvalues[key] = 1;
+                key++;
+            }
+            else
+            {
+                thresholdvalues[key] = 0;
+                key++;
+            }
+        }
 
 
     }
