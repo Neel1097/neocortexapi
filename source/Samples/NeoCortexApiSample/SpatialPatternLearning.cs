@@ -18,7 +18,7 @@ namespace NeoCortexApiSample
     {
         public void Run()
         {
-            Console.WriteLine($"Hello NeocortexApi! Experiment {nameof(SpatialPatternLearning)}");
+            Console.WriteLine($"Welcome to the Project by the team BaitByte \n Project Title: ML 23/24-04 Implement the Spatial Pooler SDR Reconstruction \n Name of the team members :\n i. Subham Singh\nii. Amit Maity \n iii. Rubi Kiran");
 
             // Used as a boosting parameters
             // that ensure homeostatic plasticity effect.
@@ -45,15 +45,14 @@ namespace NeoCortexApiSample
                 PotentialRadius = (int)(0.15 * inputBits),
                 LocalAreaDensity = -1,
                 ActivationThreshold = 10,
-                
+
                 MaxSynapsesPerSegment = (int)(0.01 * numColumns),
                 Random = new ThreadSafeRandom(42),
-                StimulusThreshold=10,
+                StimulusThreshold = 10,
             };
 
-            double max = 150;
+            double max = 100;
 
-            //
             // This dictionary defines a set of typical encoder parameters.
             Dictionary<string, object> settings = new Dictionary<string, object>()
             {
@@ -66,7 +65,6 @@ namespace NeoCortexApiSample
                 { "ClipInput", false},
                 { "MaxVal", max}
             };
-
 
             EncoderBase encoder = new ScalarEncoder(settings);
 
@@ -81,10 +79,8 @@ namespace NeoCortexApiSample
 
             var sp = RunExperiment(cfg, encoder, inputValues);
 
-            //RunRustructuringExperiment(sp, encoder, inputValues);
+            RunRustructuringExperiment(sp, encoder, inputValues);
         }
-
-       
 
         /// <summary>
         /// Implements the experiment.
@@ -165,7 +161,7 @@ namespace NeoCortexApiSample
             }
 
             // Learning process will take 1000 iterations (cycles)
-            int maxSPLearningCycles = 1000;
+            int maxSPLearningCycles = 10;
 
             int numStableCycles = 0;
 
@@ -218,37 +214,25 @@ namespace NeoCortexApiSample
                 var actCols = sp.Compute(inpSdr, false);
 
                 var probabilities = sp.Reconstruct(actCols);
+                var thresholdedProbabilities = PermanenceThreshold.ApplyThreshold(probabilities);
 
-                Debug.WriteLine($"Input: {input} SDR: {Helpers.StringifyVector(actCols)}");
+              //  BitmapVisualizer.VisualizeBitmap(inpSdr, thresholdedProbabilities);
 
-                Debug.WriteLine($"Input: {input} SDR: {Helpers.StringifyVector(actCols)}");
+                Console.WriteLine(new string('-', 50)); // Separator for better readability
+                // Print the reconstructed input and active columns
+                Debug.WriteLine($"Input: {input} Original SDR: {Helpers.StringifyVector(inpSdr)}");
+                Debug.WriteLine($"Input: {input} Active Columns: {Helpers.StringifyVector(actCols)}");
+
+                // Print the reconstructed probabilities
+                Debug.WriteLine($"Input: {input} Reconstructed Probabilities:");
+                foreach (var entry in probabilities)
+                {
+                    Debug.WriteLine($"  Column {entry.Key}: {entry.Value}");
+                }
+
+                // Add a line break for better readability
+                Debug.WriteLine("\n");
             }
         }
-
-        //Implementing the image Binarizier
-        public class ImageBinarization()
-        {
-            //.. Replace "inputImage.jpg" with the path to your input image
-            string inputImagePath = "C:\\Users\\amit\\Pictures\\Screenshots\\ABC.png";
-
-            //.. Set the binarization threshold (adjust as needed)
-            int threshold = 128;
-
-            // ..Instantiate the class
-            ImageBinarization imageBinarization = new ImageBinarization();
-
-            //.. Get the binary values as a 2D array
-            int[,] binaryValues = imageBinarization.BinarizeAndGetValues(inputImagePath, threshold);
-
-
-
-            //..
-            imageBinarization.PrintBinaryValues(binaryValues);
-
-
     }
-
-
-
-    }
-} 
+}
