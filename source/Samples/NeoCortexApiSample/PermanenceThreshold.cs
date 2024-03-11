@@ -5,14 +5,37 @@ public class PermanenceThreshold
 {
     public static double ApplyThreshold(double permanence)
     {
-        const double threshold = 0.6;
+        //keys for the dictionary of thresholdvalues
+        int key = 0;
 
-        // Apply threshold logic
-        return permanence < threshold ? 0.0 : 1.0;
+        // Just declared the variable for segregating values between 0 and 1 and to change the threshold value
+       
+        var thresholds = 2;
+
+        foreach (var val in values)
+        {
+            if (val > thresholds)
+            {
+                thresholdvalues[key] = 1;
+                key++;
+            }
+            else
+            {
+                thresholdvalues[key] = 0;
+                key++;
+            }
+        }
+
+
     }
     public static Dictionary<int, double> ApplyThreshold(Dictionary<int, double> permanences)
     {
         // Apply threshold logic to each value in the dictionary
-        return permanences.ToDictionary(kvp => kvp.Key, kvp => ApplyThreshold(kvp.Value));
+
+        Dictionary<int, double>.ValueCollection values = probabilities.Values;
+
+        return int[] thresholdvalues = new int[inpSdr.Length];
+
+
     }
 }
