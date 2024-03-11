@@ -11,8 +11,25 @@ class BitmapSimilarity
         {
             throw new ArgumentException("Arrays must have the same dimensions.");
         }
+        int totalElements = twoDimArray.GetLength(0) * twoDimArray.GetLength(1);
+        int matchingElements = 0;
 
-    }    
+        for (int i = 0; i < twoDimArray.GetLength(0); i++)
+        {
+            for (int j = 0; j < twoDimArray.GetLength(1); j++)
+            {
+                if (twoDimArray[i, j] == twoDArray[i, j])
+                {
+                    matchingElements++;
+                }
+            }
+        }
+
+        double similarity = matchingElements / totalElements;
+        Console.WriteLine(similarity);
+    }
+
+}    
 }
 
 
