@@ -278,11 +278,7 @@ namespace NeoCortexApiSample
 
                  }*/
 
-                int matchingCount = inpSdr.Zip(thresholdValues, (a, b) => a == b ? 1 : 0).Sum();
-
-                var similarity = (double)matchingCount / inpSdr.Length * 100;
-                Console.WriteLine($"Similarity: {similarity}%");
-
+                
 
                 // Calculate the similarity as the ratio of the intersection to the total number of unique elements
 
