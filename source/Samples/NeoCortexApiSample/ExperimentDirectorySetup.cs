@@ -1,13 +1,26 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 
-namespace NeoCortexApiSample
+public class ExperimentDirectorySetup
 {
-    internal class ExperimentDirectorySetup
+    private readonly string experimentName;
+
+    public ExperimentDirectorySetup(string experimentName)
     {
+        this.experimentName = experimentName;
+    }
+
+    public string SetupExperimentDirectory()
+    {
+        string outFolder = experimentName;
+
+        if (Directory.Exists(outFolder))
+        {
+            Directory.Delete(outFolder, true);
+        }
+
+        Directory.CreateDirectory(outFolder);
+
+        return outFolder;
     }
 }
-// This class will be used to set up the directory to store the bitmap

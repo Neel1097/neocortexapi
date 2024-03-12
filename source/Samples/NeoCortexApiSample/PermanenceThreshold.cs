@@ -3,39 +3,38 @@ using System.Linq;
 
 public class PermanenceThreshold
 {
-    public static double ApplyThreshold(double permanence)
-    {
-        //keys for the dictionary of thresholdvalues
-        int key = 0;
+    private readonly double[] values;
+    private readonly int[] thresholdValues;
 
-        // Just declared the variable for segregating values between 0 and 1 and to change the threshold value
-       
-        var thresholds = 2;
+    public PermanenceThreshold(IEnumerable<double> inputValues, double threshold)
+    {
+        values = inputValues.ToArray();
+        thresholdValues = CalculateThresholdValues(threshold);
+    }
+
+    private int[] CalculateThresholdValues(double threshold)
+    {
+        int[] result = new int[values.Length];
+        int key = 0;
 
         foreach (var val in values)
         {
-            if (val > thresholds)
+            if (val > threshold)
             {
-                thresholdvalues[key] = 1;
-                key++;
+                result[key] = 1;
             }
             else
             {
-                thresholdvalues[key] = 0;
-                key++;
+                result[key] = 0;
             }
+            key++;
         }
 
-
+        return result;
     }
-    public static Dictionary<int, double> ApplyThreshold(Dictionary<int, double> permanences)
+
+    public int[] GetThresholdValues()
     {
-        // Apply threshold logic to each value in the dictionary
-
-        Dictionary<int, double>.ValueCollection values = probabilities.Values;
-
-        return int[] thresholdvalues = new int[inpSdr.Length];
-
-
+        return thresholdValues;
     }
 }
