@@ -1,4 +1,8 @@
-﻿using NeoCortexApi;
+﻿using Daenet.ImageBinarizerLib;
+using Daenet.ImageBinarizerLib.Entities;
+using LearningFoundation;
+using NeoCortex;
+using NeoCortexApi;
 using NeoCortexApi.Encoders;
 using NeoCortexApi.Entities;
 using NeoCortexApi.Network;
@@ -6,6 +10,8 @@ using NeoCortexApi.Utility;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 
 namespace NeoCortexApiSample
@@ -18,7 +24,7 @@ namespace NeoCortexApiSample
     {
         public void Run()
         {
-            Console.WriteLine($"Welcome to the Project by the team BaitByte \n Project Title: ML 23/24-04 Implement the Spatial Pooler SDR Reconstruction \n Name of the team members :\n i. Subham Singh\nii. Amit Maity \n iii. Rubi Kiran");
+            Console.WriteLine($"Hello NeocortexApi! Experiment {nameof(SpatialPatternLearning)}");
 
             // Used as a boosting parameters
             // that ensure homeostatic plasticity effect.
@@ -31,7 +37,7 @@ namespace NeoCortexApiSample
             // We will build a slice of the cortex with the given number of mini-columns
             int numColumns = 1024;
 
-            //
+
             // This is a set of configuration parameters used in the experiment.
             HtmConfig cfg = new HtmConfig(new int[] { inputBits }, new int[] { numColumns })
             {
@@ -51,7 +57,12 @@ namespace NeoCortexApiSample
                 StimulusThreshold = 10,
             };
 
-            double max = 100;
+
+            double max = 300;
+
+            // double max = 200;
+
+
 
             // This dictionary defines a set of typical encoder parameters.
             Dictionary<string, object> settings = new Dictionary<string, object>()
@@ -66,9 +77,10 @@ namespace NeoCortexApiSample
                 { "MaxVal", max}
             };
 
+
             EncoderBase encoder = new ScalarEncoder(settings);
 
-            //
+
             // We create here 100 random input values.
             List<double> inputValues = new List<double>();
 
@@ -81,6 +93,8 @@ namespace NeoCortexApiSample
 
             RunRustructuringExperiment(sp, encoder, inputValues);
         }
+
+
 
         /// <summary>
         /// Implements the experiment.
@@ -103,7 +117,7 @@ namespace NeoCortexApiSample
             // (defined by the second argument) the HPC is controlling the learning process of the SP.
             // Once the SDR generated for every input gets stable, the HPC will fire event that notifies your code
             // that SP is stable now.
-            HomeostaticPlasticityController hpa = new HomeostaticPlasticityController(mem, inputValues.Count * 40,
+            HomeostaticPlasticityController hpa = new HomeostaticPlasticityController(mem, inputValues.Count * 1,
                 (isStable, numPatterns, actColAvg, seenInputs) =>
                 {
                     // Event should only be fired when entering the stable state.
@@ -161,7 +175,7 @@ namespace NeoCortexApiSample
             }
 
             // Learning process will take 1000 iterations (cycles)
-            int maxSPLearningCycles = 10;
+            int maxSPLearningCycles = 1000;
 
             int numStableCycles = 0;
 
@@ -169,7 +183,7 @@ namespace NeoCortexApiSample
             {
                 Debug.WriteLine($"Cycle  ** {cycle} ** Stability: {isInStableState}");
 
-                //
+
                 // This trains the layer on input pattern.
                 foreach (var input in inputs)
                 {
@@ -177,7 +191,6 @@ namespace NeoCortexApiSample
 
                     // Learn the input pattern.
                     // Output lyrOut is the output of the last module in the layer.
-                    // 
                     var lyrOut = cortexLayer.Compute((object)input, true) as int[];
 
                     // This is a general way to get the SpatialPooler result from the layer.
@@ -207,32 +220,207 @@ namespace NeoCortexApiSample
 
         private void RunRustructuringExperiment(SpatialPooler sp, EncoderBase encoder, List<double> inputValues)
         {
+            //Create a directory to save the bitmap output.
+            //string outFolder = nameof(RunRustructuringExperiment);
+            //Directory.Delete(outFolder, true);
+            //Directory.CreateDirectory(outFolder);
+            var directorySetup = new ExperimentDirectorySetup(nameof(RunRustructuringExperiment));
+
+
             foreach (var input in inputValues)
             {
                 var inpSdr = encoder.Encode(input);
 
+
+                string outputPath = $"{directorySetup}\\{input}.png";
+                BitmapVisualizer.GenerateAndDrawBitmap(inpSdr, outputPath, text: null);
+
+
+                Debug.WriteLine(inpSdr);
                 var actCols = sp.Compute(inpSdr, false);
 
+
+
                 var probabilities = sp.Reconstruct(actCols);
-                var thresholdedProbabilities = PermanenceThreshold.ApplyThreshold(probabilities);
+                // Create an instance of PermanenceThreshold for each input
+                var permanenceThreshold = new PermanenceThreshold(probabilities.Values, 2);
 
-              //  BitmapVisualizer.VisualizeBitmap(inpSdr, thresholdedProbabilities);
+                // Get threshold values
+                var thresholdValues = permanenceThreshold.GetThresholdValues();
 
-                Console.WriteLine(new string('-', 50)); // Separator for better readability
-                // Print the reconstructed input and active columns
-                Debug.WriteLine($"Input: {input} Original SDR: {Helpers.StringifyVector(inpSdr)}");
-                Debug.WriteLine($"Input: {input} Active Columns: {Helpers.StringifyVector(actCols)}");
+                //Debug.WriteLine($"Input: {input} SDR: {Helpers.StringifyVector(actCols)}");
 
-                // Print the reconstructed probabilities
-                Debug.WriteLine($"Input: {input} Reconstructed Probabilities:");
-                foreach (var entry in probabilities)
-                {
-                    Debug.WriteLine($"  Column {entry.Key}: {entry.Value}");
-                }
+                //Debug.WriteLine($"Input: {input} SDR: {Helpers.StringifyVector(actCols)}");
 
-                // Add a line break for better readability
-                Debug.WriteLine("\n");
+                //Collecting the permancences value and applying threshold and analyzing it
+
+
+                /* Dictionary<int, double>.ValueCollection values = probabilities.Values;
+                 var thresholdvalues = new int[inpSdr.Length];
+
+                 int key = 0; //keys for the new dictionary thresholdvalues
+
+                 var thresholds = 2;     // Just declared the variable for segrigating values between 0 and 1 and to change the threshold value
+
+                 foreach (var val in values)
+                 {
+                     if (val > thresholds)
+                     {
+                         thresholdvalues[key] = 1;
+                         key++;
+                     }
+                     else
+                     {
+                         thresholdvalues[key] = 0;
+                         key++;
+                     }
+
+
+                 }*/
+
+                int matchingCount = inpSdr.Zip(thresholdValues, (a, b) => a == b ? 1 : 0).Sum();
+
+                var similarity = (double)matchingCount / inpSdr.Length * 100;
+                Console.WriteLine($"Similarity: {similarity}%");
+
+
+                // Calculate the similarity as the ratio of the intersection to the total number of unique elements
+
+
+
+
+                var similaritystrng = similarity.ToString();
+
+                int[,] twoDiArray = ArrayUtils.Make2DArray<int>(thresholdValues, (int)Math.Sqrt(thresholdValues.Length), (int)Math.Sqrt(thresholdValues.Length));
+                var twoDArray = ArrayUtils.Transpose(twoDiArray);
+
+                NeoCortexUtils.DrawBitmap(twoDArray, 1024, 1024, $"{directorySetup}\\{input}-similarity={similaritystrng}.png", Color.Gray, Color.Green, text: similaritystrng);
+
+
+
+                //NeoCortexUtils.BinarizeImage("767666", 78, "989877");
+
+
+                //NeoCortexUtils.BinarizeImage("input", 78, "BinarizeImage"); // To binarize the image
+
+
+
+                //BinarizerParams binarizerParams = new BinarizerParams 
+                // {
+                //RedThreshold = 200,
+                // GreenThreshold = 200,
+                // BlueThreshold = 200,
+                // ImageWidth = 64,  // Set the desired width of the output image
+                //ImageHeight = 64, // Set the desired height of the output image
+                // ... other parameters
+                //  }; //++----
+
+                //ImageBinarizer imageBinarizer = new ImageBinarizer(binarizerParams);
+
+                //binarizerParams.InputImagePath = "D:/Code-X/Capture.jpg";
+                //imageBinarizer.Run(); // its not working
+
+
+
+
+
             }
+            //..Trying to Implement Image Binarizer
+            //public class ImageBinarization()
+            //{
+            //    //.. Replace "inputImage.jpg" with the path to your input image
+            //    string inputImagePath = "C:\\Users\\rehma\\Pictures\\Screenshots\\ABC.png";
+
+
+            //    //.. Set the binarization threshold (adjust as needed)
+            //    int threshold = 128;
+            //}
+
+            //.. Set the binarization threshold (adjust as needed)
+            // int threshold = 128;
+
+            // ..Instantiate the class
+            // ImageBinarization imageBinarization = new ImageBinarization();
+
+            //.. Get the binary values as a 2D array
+            // int[,] binaryValues = imageBinarization.BinarizeAndGetValues(inputImagePath, threshold);
+
+
+
+            //..Print the binary values to the console
+            //imageBinarization.PrintBinaryValues(binaryValues);
+
+            //..analyzing binarizer output
+
+            //Console.WriteLine("Image binarization complete. Press any key to exit.");
+            //Console.ReadKey();
+
+            //public int[,] BinarizeAndGetValues(string inputImagePath, int threshold)
+
+
+            // public int[,] BinarizeAndGetValues(string inputImagePath, int threshold)
+            // {
+            // Load the input image
+            //  using (Bitmap inputImage = new Bitmap(inputImagePath))
+
+
+            // Console.WriteLine ("Image binarization complete. Press any key to exit.");
+            // Console.ReadKey();
+
+            //    public void ScalarEncodingGetBucketIndexNonPeriodic()
+            //    {
+            //        // Create a directory to save the bitmap output.
+            //        string outFolder = nameof(ScalarEncodingGetBucketIndexNonPeriodic);
+
+            //        Directory.CreateDirectory(outFolder);
+
+            //        DateTime now = DateTime.Now;
+
+            //        // Create a new ScalarEncoder with the given configuration.
+            //        ScalarEncoder encoder = new ScalarEncoder(new Dictionary<string, object>()
+            //{
+            //    { "W", 21},
+            //    { "N", 1024},
+            //    { "Radius", -1.0},
+            //    { "MinVal", 0.0},
+            //    { "MaxVal", 100.0 },
+            //    { "Periodic", false},
+            //    { "Name", "scalar"},
+            //    { "ClipInput", false},
+            //});
+
+            //        // Iterate through a range of numbers and encode them using the ScalarEncoder.
+            //        for (decimal i = 0.0M; i < (long)encoder.MaxVal; i += 0.1M)
+            //        {
+            //            // Encode the number and get the corresponding bucket index.
+            //            var result = encoder.Encode(i);
+
+            //            int? bucketIndex = encoder.GetBucketIndex(i);
+
+            //            // Convert the encoded result into a 2D array and transpose it.
+            //            int[,] twoDimenArray = ArrayUtils.Make2DArray<int>(result, (int)Math.Sqrt(result.Length), (int)Math.Sqrt(result.Length));
+            //            var twoDimArray = ArrayUtils.Transpose(twoDimenArray);
+
+            //            // Draw a bitmap of the encoded result with the corresponding bucket index and save it to the output folder.
+            //            NeoCortexUtils.DrawBitmap(twoDimArray, 1024, 1024, $"{outFolder}\\{i}.png", Color.Gray, Color.Green, text: $"v:{i} /b:{bucketIndex}");
+
+            //            // Print the value of i and its corresponding bucket index for debugging purposes.
+            //            Console.WriteLine($"Encoded {i} into bucket {bucketIndex}");
+
+
+            //        }
+
+            //    }
+
+
+
         }
     }
 }
+
+
+
+
+
+
+
