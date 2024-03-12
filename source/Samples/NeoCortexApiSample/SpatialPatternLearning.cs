@@ -278,14 +278,18 @@ namespace NeoCortexApiSample
 
                  }*/
 
-                
+
 
                 // Calculate the similarity as the ratio of the intersection to the total number of unique elements
 
+                Similarity sim = new Similarity();
+                var simi = Similarity.CalculateSim(inpSdr, thresholdValues);
+                Console.WriteLine($"Similarity: {simi}%");
 
 
 
-                var similaritystrng = similarity.ToString();
+
+                var similaritystrng = simi.ToString();
 
                 int[,] twoDiArray = ArrayUtils.Make2DArray<int>(thresholdValues, (int)Math.Sqrt(thresholdValues.Length), (int)Math.Sqrt(thresholdValues.Length));
                 var twoDArray = ArrayUtils.Transpose(twoDiArray);
