@@ -3,16 +3,38 @@ using System.Linq;
 
 public class PermanenceThreshold
 {
-    public static double ApplyThreshold(double permanence)
-    {
-        const double threshold = 0.6;
+    private readonly double[] values;
+    private readonly int[] thresholdValues;
 
-        // Apply threshold logic
-        return permanence < threshold ? 0.0 : 1.0;
-    }
-    public static Dictionary<int, double> ApplyThreshold(Dictionary<int, double> permanences)
+    public PermanenceThreshold(IEnumerable<double> inputValues, double threshold)
     {
-        // Apply threshold logic to each value in the dictionary
-        return permanences.ToDictionary(kvp => kvp.Key, kvp => ApplyThreshold(kvp.Value));
+        values = inputValues.ToArray();
+        thresholdValues = CalculateThresholdValues(threshold);
+    }
+
+    private int[] CalculateThresholdValues(double threshold)
+    {
+        int[] result = new int[values.Length];
+        int key = 0;
+
+        foreach (var val in values)
+        {
+            if (val > threshold)
+            {
+                result[key] = 1;
+            }
+            else
+            {
+                result[key] = 0;
+            }
+            key++;
+        }
+
+        return result;
+    }
+
+    public int[] GetThresholdValues()
+    {
+        return thresholdValues;
     }
 }
