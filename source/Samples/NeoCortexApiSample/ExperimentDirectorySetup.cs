@@ -3,14 +3,7 @@ using System.IO;
 
 public class ExperimentDirectorySetup
 {
-    private readonly string experimentName;
-
-    public ExperimentDirectorySetup(string experimentName)
-    {
-        this.experimentName = experimentName;
-    }
-
-    public string SetupExperimentDirectory()
+    public string SetupExperimentDirectory(string experimentName)
     {
         string outFolder = experimentName;
 
