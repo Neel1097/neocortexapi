@@ -175,7 +175,7 @@ namespace NeoCortexApiSample
             }
 
             // Learning process will take 1000 iterations (cycles)
-            int maxSPLearningCycles = 1000;
+            int maxSPLearningCycles = 5;
 
             int numStableCycles = 0;
 
@@ -225,15 +225,16 @@ namespace NeoCortexApiSample
             //Directory.Delete(outFolder, true);
             //Directory.CreateDirectory(outFolder);
             var directorySetup = new ExperimentDirectorySetup(nameof(RunRustructuringExperiment));
-
+            string outFolder = directorySetup.SetupExperimentDirectory();
 
             foreach (var input in inputValues)
             {
                 var inpSdr = encoder.Encode(input);
 
 
-                string outputPath = $"{directorySetup}\\{input}.png";
+                string outputPath = Path.Combine(outFolder, $"{input}.png");
                 BitmapVisualizer.GenerateAndDrawBitmap(inpSdr, outputPath, text: null);
+                //BitmapVisualizer.GenerateAndDrawBitmap(inpSdr, outputPath, text: null);
 
 
                 Debug.WriteLine(inpSdr);
@@ -243,10 +244,10 @@ namespace NeoCortexApiSample
 
                 var probabilities = sp.Reconstruct(actCols);
                 // Create an instance of PermanenceThreshold for each input
-                var permanenceThreshold = new PermanenceThreshold(probabilities.Values, 2);
+              //  var permanenceThreshold = new PermanenceThreshold(probabilities.Values, 2);
 
                 // Get threshold values
-                var thresholdValues = permanenceThreshold.GetThresholdValues();
+               // var thresholdValues = permanenceThreshold.GetThresholdValues();
 
                 //Debug.WriteLine($"Input: {input} SDR: {Helpers.StringifyVector(actCols)}");
 
@@ -255,7 +256,7 @@ namespace NeoCortexApiSample
                 //Collecting the permancences value and applying threshold and analyzing it
 
 
-                /* Dictionary<int, double>.ValueCollection values = probabilities.Values;
+                Dictionary<int, double>.ValueCollection values = probabilities.Values;
                  var thresholdvalues = new int[inpSdr.Length];
 
                  int key = 0; //keys for the new dictionary thresholdvalues
@@ -276,26 +277,28 @@ namespace NeoCortexApiSample
                      }
 
 
-                 }*/
+                 }
 
 
 
                 // Calculate the similarity as the ratio of the intersection to the total number of unique elements
 
                 Similarity sim = new Similarity();
-                var simi = Similarity.CalculateSim(inpSdr, thresholdValues);
+                var simi = Similarity.CalculateSim(inpSdr, thresholdvalues);
                 Console.WriteLine($"Similarity: {simi}%");
 
                 var similaritystrng = simi.ToString();
+                string outputPath_S = Path.Combine(outFolder, $"{input}-similarity={similaritystrng}.png");
+                BitmapVisualizer.GenerateAndDrawBitmap(thresholdvalues, outputPath_S, text: similaritystrng);
 
-                int[,] twoDiArray = ArrayUtils.Make2DArray<int>(thresholdValues, (int)Math.Sqrt(thresholdValues.Length), (int)Math.Sqrt(thresholdValues.Length));
-                var twoDArray = ArrayUtils.Transpose(twoDiArray);
+                //int[,] twoDiArray = ArrayUtils.Make2DArray<int>(thresholdvalues, (int)Math.Sqrt(thresholdvalues.Length), (int)Math.Sqrt(thresholdvalues.Length));
+                //var twoDArray = ArrayUtils.Transpose(twoDiArray);
 
-                NeoCortexUtils.DrawBitmap(twoDArray, 1024, 1024, $"{directorySetup}\\{input}-similarity={similaritystrng}.png", Color.Gray, Color.Green, text: similaritystrng);
+                // NeoCortexUtils.DrawBitmap(twoDArray, 1024, 1024, $"{directorySetup}\\{input}-similarity={similaritystrng}.png", Color.Gray, Color.Green, text: similaritystrng);
+            }
         }
     }
 }
-
 
 
 
