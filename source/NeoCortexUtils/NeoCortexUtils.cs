@@ -586,5 +586,10 @@ namespace NeoCortex
 
             return exponentials.Select(x => x / sum).ToArray();
         }
+
+        public static void BinarizeImage(string imagePath, string outputPath, int threshold, string v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
