@@ -250,11 +250,11 @@ namespace NeoCortexApiSample
 
                 // Calculate the similarity as the ratio of the intersection to the total number of unique elements
 
-                Similarity sim = new Similarity();
+              /*  Similarity sim = new Similarity();
                 var simi = Similarity.CalculateSim(inpSdr, thresholdvalues);
                 Console.WriteLine($"Similarity: {simi}%");
 
-                var similaritystrng = simi.ToString();
+                var similaritystrng = simi.ToString();*/
                 string outputPath_S = Path.Combine(outFolder, $"{input}-similarity={similaritystrng}.png");
                 BitmapVisualizer.GenerateAndDrawBitmap(thresholdvalues, outputPath_S, text: similaritystrng);
 
