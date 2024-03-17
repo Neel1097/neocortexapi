@@ -1,4 +1,8 @@
-﻿using NeoCortexApi;
+﻿using Daenet.ImageBinarizerLib;
+using Daenet.ImageBinarizerLib.Entities;
+using LearningFoundation;
+using NeoCortex;
+using NeoCortexApi;
 using NeoCortexApi.Encoders;
 using NeoCortexApi.Entities;
 using NeoCortexApi.Network;
@@ -6,6 +10,8 @@ using NeoCortexApi.Utility;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 
 namespace NeoCortexApiSample
@@ -18,7 +24,7 @@ namespace NeoCortexApiSample
     {
         public void Run()
         {
-            Console.WriteLine($"Welcome to the Project by the team BaitByte \n Project Title: ML 23/24-04 Implement the Spatial Pooler SDR Reconstruction \n Name of the team members :\n i. Subham Singh\nii. Amit Maity \n iii. Rubi Kiran");
+            Console.WriteLine($"Hello NeocortexApi! Experiment {nameof(SpatialPatternLearning)}");
 
             // Used as a boosting parameters
             // that ensure homeostatic plasticity effect.
@@ -31,7 +37,7 @@ namespace NeoCortexApiSample
             // We will build a slice of the cortex with the given number of mini-columns
             int numColumns = 1024;
 
-            //
+
             // This is a set of configuration parameters used in the experiment.
             HtmConfig cfg = new HtmConfig(new int[] { inputBits }, new int[] { numColumns })
             {
@@ -51,7 +57,12 @@ namespace NeoCortexApiSample
                 StimulusThreshold = 10,
             };
 
-            double max = 100;
+
+            double max = 10;
+
+            // double max = 200;
+
+
 
             // This dictionary defines a set of typical encoder parameters.
             Dictionary<string, object> settings = new Dictionary<string, object>()
@@ -66,9 +77,10 @@ namespace NeoCortexApiSample
                 { "MaxVal", max}
             };
 
+
             EncoderBase encoder = new ScalarEncoder(settings);
 
-            //
+
             // We create here 100 random input values.
             List<double> inputValues = new List<double>();
 
@@ -81,6 +93,8 @@ namespace NeoCortexApiSample
 
             RunRustructuringExperiment(sp, encoder, inputValues);
         }
+
+
 
         /// <summary>
         /// Implements the experiment.
@@ -103,7 +117,7 @@ namespace NeoCortexApiSample
             // (defined by the second argument) the HPC is controlling the learning process of the SP.
             // Once the SDR generated for every input gets stable, the HPC will fire event that notifies your code
             // that SP is stable now.
-            HomeostaticPlasticityController hpa = new HomeostaticPlasticityController(mem, inputValues.Count * 40,
+            HomeostaticPlasticityController hpa = new HomeostaticPlasticityController(mem, inputValues.Count * 1,
                 (isStable, numPatterns, actColAvg, seenInputs) =>
                 {
                     // Event should only be fired when entering the stable state.
@@ -161,7 +175,7 @@ namespace NeoCortexApiSample
             }
 
             // Learning process will take 1000 iterations (cycles)
-            int maxSPLearningCycles = 10;
+            int maxSPLearningCycles = 5;
 
             int numStableCycles = 0;
 
@@ -169,7 +183,7 @@ namespace NeoCortexApiSample
             {
                 Debug.WriteLine($"Cycle  ** {cycle} ** Stability: {isInStableState}");
 
-                //
+
                 // This trains the layer on input pattern.
                 foreach (var input in inputs)
                 {
@@ -177,7 +191,6 @@ namespace NeoCortexApiSample
 
                     // Learn the input pattern.
                     // Output lyrOut is the output of the last module in the layer.
-                    // 
                     var lyrOut = cortexLayer.Compute((object)input, true) as int[];
 
                     // This is a general way to get the SpatialPooler result from the layer.
@@ -207,31 +220,53 @@ namespace NeoCortexApiSample
 
         private void RunRustructuringExperiment(SpatialPooler sp, EncoderBase encoder, List<double> inputValues)
         {
+            //Create a directory to save the bitmap output.
+            //string outFolder = nameof(RunRustructuringExperiment);
+            //Directory.Delete(outFolder, true);
+            //Directory.CreateDirectory(outFolder);
+            var directorySetup = new ExperimentDirectorySetup(nameof(RunRustructuringExperiment));
+            string outFolder = directorySetup.SetupExperimentDirectory();
+            var reverseEngineerExample = new ReverseEngineerExample();
             foreach (var input in inputValues)
             {
                 var inpSdr = encoder.Encode(input);
 
+
+                string outputPath = Path.Combine(outFolder, $"{input}.png");
+                BitmapVisualizer.GenerateAndDrawBitmap(inpSdr, outputPath, text: null);
+                //BitmapVisualizer.GenerateAndDrawBitmap(inpSdr, outputPath, text: null);
+
+
+                Debug.WriteLine(inpSdr);
                 var actCols = sp.Compute(inpSdr, false);
-
                 var probabilities = sp.Reconstruct(actCols);
-                var thresholdedProbabilities = PermanenceThreshold.ApplyThreshold(probabilities);
+                int inpSdrLength = inpSdr.Length;
+                // Reverse engineer the input values
+                double reconstructedInput = reverseEngineerExample.ReverseEngineerInput(probabilities, inpSdrLength);
+                Console.WriteLine($"Input SDR: {string.Join(", ", inpSdr)}");
 
-              //  BitmapVisualizer.VisualizeBitmap(inpSdr, thresholdedProbabilities);
+                // Encode the reconstructed input value using the same encoder
+                int[] reconstructedSdr = encoder.Encode(reconstructedInput);
 
-                Console.WriteLine(new string('-', 50)); // Separator for better readability
-                // Print the reconstructed input and active columns
-                Debug.WriteLine($"Input: {input} Original SDR: {Helpers.StringifyVector(inpSdr)}");
-                Debug.WriteLine($"Input: {input} Active Columns: {Helpers.StringifyVector(actCols)}");
+                JaccardIndexCalculator jaccardIndex = new JaccardIndexCalculator();
+                // Generate a bitmap to visualize the similarity
+                string similarityOutputPath = Path.Combine(outFolder, $"{input}jaccard={jaccardIndex}.png");
+                BitmapVisualizer.GenerateAndDrawBitmap(reconstructedSdr, similarityOutputPath, text: $"Jaccard: {jaccardIndex}");
 
-                // Print the reconstructed probabilities
-                Debug.WriteLine($"Input: {input} Reconstructed Probabilities:");
-                foreach (var entry in probabilities)
-                {
-                    Debug.WriteLine($"  Column {entry.Key}: {entry.Value}");
-                }
+                // Calculate the similarity as the ratio of the intersection to the total number of unique elements
 
-                // Add a line break for better readability
-                Debug.WriteLine("\n");
+                /*  Similarity sim = new Similarity();
+                  var simi = Similarity.CalculateSim(inpSdr, thresholdvalues);
+                  Console.WriteLine($"Similarity: {simi}%");
+
+                  var similaritystrng = simi.ToString();*/
+                string outputPath_S = Path.Combine(outFolder, $"{input}-similarity={similaritystrng}.png");
+                BitmapVisualizer.GenerateAndDrawBitmap(thresholdvalues, outputPath_S, text: similaritystrng);
+
+                //int[,] twoDiArray = ArrayUtils.Make2DArray<int>(thresholdvalues, (int)Math.Sqrt(thresholdvalues.Length), (int)Math.Sqrt(thresholdvalues.Length));
+                //var twoDArray = ArrayUtils.Transpose(twoDiArray);
+
+                // NeoCortexUtils.DrawBitmap(twoDArray, 1024, 1024, $"{directorySetup}\\{input}-similarity={similaritystrng}.png", Color.Gray, Color.Green, text: similaritystrng);
             }
         }
     }
