@@ -226,7 +226,7 @@ namespace NeoCortexApiSample
             //Directory.CreateDirectory(outFolder);
             var directorySetup = new ExperimentDirectorySetup(nameof(RunRustructuringExperiment));
             string outFolder = directorySetup.SetupExperimentDirectory();
-
+            var reverseEngineerExample = new ReverseEngineerExample();
             foreach (var input in inputValues)
             {
                 var inpSdr = encoder.Encode(input);
@@ -239,55 +239,22 @@ namespace NeoCortexApiSample
 
                 Debug.WriteLine(inpSdr);
                 var actCols = sp.Compute(inpSdr, false);
-
-
-
                 var probabilities = sp.Reconstruct(actCols);
-                // Create an instance of PermanenceThreshold for each input
-              //  var permanenceThreshold = new PermanenceThreshold(probabilities.Values, 2);
+                int inpSdrLength = inpSdr.Length;
+                // Reverse engineer the input values
+                double reconstructedInput = reverseEngineerExample.ReverseEngineerInput(probabilities, inpSdrLength);
+                Console.WriteLine($"Input SDR: {string.Join(", ", inpSdr)}");
 
-                // Get threshold values
-               // var thresholdValues = permanenceThreshold.GetThresholdValues();
-
-                //Debug.WriteLine($"Input: {input} SDR: {Helpers.StringifyVector(actCols)}");
-
-                //Debug.WriteLine($"Input: {input} SDR: {Helpers.StringifyVector(actCols)}");
-
-                //Collecting the permancences value and applying threshold and analyzing it
-
-
-                Dictionary<int, double>.ValueCollection values = probabilities.Values;
-                 var thresholdvalues = new int[inpSdr.Length];
-
-                 int key = 0; //keys for the new dictionary thresholdvalues
-
-                 var thresholds = 2;     // Just declared the variable for segrigating values between 0 and 1 and to change the threshold value
-
-                 foreach (var val in values)
-                 {
-                     if (val > thresholds)
-                     {
-                         thresholdvalues[key] = 1;
-                         key++;
-                     }
-                     else
-                     {
-                         thresholdvalues[key] = 0;
-                         key++;
-                     }
-
-
-                 }
-
-
+                // Encode the reconstructed input value using the same encoder
+                int[] reconstructedSdr = encoder.Encode(reconstructedInput);
 
                 // Calculate the similarity as the ratio of the intersection to the total number of unique elements
 
-                Similarity sim = new Similarity();
+              /*  Similarity sim = new Similarity();
                 var simi = Similarity.CalculateSim(inpSdr, thresholdvalues);
                 Console.WriteLine($"Similarity: {simi}%");
 
-                var similaritystrng = simi.ToString();
+                var similaritystrng = simi.ToString();*/
                 string outputPath_S = Path.Combine(outFolder, $"{input}-similarity={similaritystrng}.png");
                 BitmapVisualizer.GenerateAndDrawBitmap(thresholdvalues, outputPath_S, text: similaritystrng);
 
