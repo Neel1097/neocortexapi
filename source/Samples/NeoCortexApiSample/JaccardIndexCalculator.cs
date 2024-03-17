@@ -11,6 +11,9 @@ public class JaccardIndexCalculator
         {
             throw new ArgumentException("SDRs must have the same length.");
         }
-        return;
+        // Calculate intersection and union counts
+        int intersection = 0;
+        int union = 0;
+
     }
 }
