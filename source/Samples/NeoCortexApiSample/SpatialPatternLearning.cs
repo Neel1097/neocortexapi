@@ -248,13 +248,18 @@ namespace NeoCortexApiSample
                 // Encode the reconstructed input value using the same encoder
                 int[] reconstructedSdr = encoder.Encode(reconstructedInput);
 
+                JaccardIndexCalculator jaccardIndex = new JaccardIndexCalculator();
+                // Generate a bitmap to visualize the similarity
+                string similarityOutputPath = Path.Combine(outFolder, $"{input}jaccard={jaccardIndex}.png");
+                BitmapVisualizer.GenerateAndDrawBitmap(reconstructedSdr, similarityOutputPath, text: $"Jaccard: {jaccardIndex}");
+
                 // Calculate the similarity as the ratio of the intersection to the total number of unique elements
 
-              /*  Similarity sim = new Similarity();
-                var simi = Similarity.CalculateSim(inpSdr, thresholdvalues);
-                Console.WriteLine($"Similarity: {simi}%");
+                /*  Similarity sim = new Similarity();
+                  var simi = Similarity.CalculateSim(inpSdr, thresholdvalues);
+                  Console.WriteLine($"Similarity: {simi}%");
 
-                var similaritystrng = simi.ToString();*/
+                  var similaritystrng = simi.ToString();*/
                 string outputPath_S = Path.Combine(outFolder, $"{input}-similarity={similaritystrng}.png");
                 BitmapVisualizer.GenerateAndDrawBitmap(thresholdvalues, outputPath_S, text: similaritystrng);
 
@@ -266,9 +271,3 @@ namespace NeoCortexApiSample
         }
     }
 }
-
-
-
-
-
-
