@@ -10,29 +10,39 @@ namespace NeoCortexApiSample
 {
     internal class BitmapComparator
     {
-        int matchingPixels = 0;
-        int totalPixels = bmp1.Width * bmp1.Height;
-
-        // Compare corresponding pixels in the two bitmaps
-        for (int x = 0; x<bmp1.Width; x++)
+        // Method to compare two bitmaps and calculate similarity percentage
+        public static double Compare(Bitmap bmp1, Bitmap bmp2)
         {
-            for (int y = 0; y<bmp1.Height; y++)
+            // Ensure that the two bitmaps have the same dimensions
+            if (bmp1.Width != bmp2.Width || bmp1.Height != bmp2.Height)
             {
-                Color color1 = bmp1.GetPixel(x, y);
-        Color color2 = bmp2.GetPixel(x, y);
+                throw new ArgumentException("Bitmaps must have the same dimensions for comparison.");
+            }
 
-                // Check if the colors are identical
-                if (color1.ToArgb() == color2.ToArgb())
+            int matchingPixels = 0;
+            int totalPixels = bmp1.Width * bmp1.Height;
+
+            // Compare corresponding pixels in the two bitmaps
+            for (int x = 0; x < bmp1.Width; x++)
+            {
+                for (int y = 0; y < bmp1.Height; y++)
                 {
-                    matchingPixels++;
+                    Color color1 = bmp1.GetPixel(x, y);
+                    Color color2 = bmp2.GetPixel(x, y);
+
+                    // Check if the colors are identical
+                    if (color1.ToArgb() == color2.ToArgb())
+                    {
+                        matchingPixels++;
+                    }
+                    // Calculate the similarity percentage
+                    double similarityPercentage = (double)matchingPixels / totalPixels * 100;
+
+                    return similarityPercentage;
+
                 }
-    // Calculate the similarity percentage
-    double similarityPercentage = (double)matchingPixels / totalPixels * 100;
+            }
 
-        return similarityPercentage;
-
+        }
+    }
 }
-
-
-
-
