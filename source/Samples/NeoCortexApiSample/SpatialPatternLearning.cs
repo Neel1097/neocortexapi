@@ -58,7 +58,7 @@ namespace NeoCortexApiSample
             };
 
 
-            double max = 10;
+            double max = 300;
 
             // double max = 200;
 
@@ -220,53 +220,40 @@ namespace NeoCortexApiSample
 
         private void RunRustructuringExperiment(SpatialPooler sp, EncoderBase encoder, List<double> inputValues)
         {
-            //Create a directory to save the bitmap output.
-            //string outFolder = nameof(RunRustructuringExperiment);
-            //Directory.Delete(outFolder, true);
-            //Directory.CreateDirectory(outFolder);
+            //Calling the directory function to create the directory.
             var directorySetup = new ExperimentDirectorySetup(nameof(RunRustructuringExperiment));
             string outFolder = directorySetup.SetupExperimentDirectory();
+            //Creating an instance of the ReverseEngineeringEXample class.
             var reverseEngineerExample = new ReverseEngineerExample();
+            // Creating an instance of the jaccardIndex class.
+            JaccardIndexCalculator jaccardIndex = new JaccardIndexCalculator();
             foreach (var input in inputValues)
             {
                 var inpSdr = encoder.Encode(input);
 
-
+                // Generating the bitmap for the produced input SDR.
                 string outputPath = Path.Combine(outFolder, $"{input}.png");
-                BitmapVisualizer.GenerateAndDrawBitmap(inpSdr, outputPath, text: null);
-                //BitmapVisualizer.GenerateAndDrawBitmap(inpSdr, outputPath, text: null);
+                BitmapVisualizer.GenerateAndDrawBitmap(inpSdr, outputPath, text: null);// Calling the BitmapVisualiser fucntion to create the bitmaps.
+                
 
 
                 Debug.WriteLine(inpSdr);
                 var actCols = sp.Compute(inpSdr, false);
                 var probabilities = sp.Reconstruct(actCols);
                 int inpSdrLength = inpSdr.Length;
-                // Reverse engineer the input values
+                // Adding the threshold to the reconstructed values by weighing the permanence.
                 double reconstructedInput = reverseEngineerExample.ReverseEngineerInput(probabilities, inpSdrLength);
                 Console.WriteLine($"Input SDR: {string.Join(", ", inpSdr)}");
 
                 // Encode the reconstructed input value using the same encoder
                 int[] reconstructedSdr = encoder.Encode(reconstructedInput);
 
-                JaccardIndexCalculator jaccardIndex = new JaccardIndexCalculator();
+                
                 // Generate a bitmap to visualize the similarity
                 string similarityOutputPath = Path.Combine(outFolder, $"{input}jaccard={jaccardIndex}.png");
                 BitmapVisualizer.GenerateAndDrawBitmap(reconstructedSdr, similarityOutputPath, text: $"Jaccard: {jaccardIndex}");
-
-                // Calculate the similarity as the ratio of the intersection to the total number of unique elements
-
-                /*  Similarity sim = new Similarity();
-                  var simi = Similarity.CalculateSim(inpSdr, thresholdvalues);
-                  Console.WriteLine($"Similarity: {simi}%");
-
-                  var similaritystrng = simi.ToString();*/
-                string outputPath_S = Path.Combine(outFolder, $"{input}-similarity={similaritystrng}.png");
-                BitmapVisualizer.GenerateAndDrawBitmap(thresholdvalues, outputPath_S, text: similaritystrng);
-
-                //int[,] twoDiArray = ArrayUtils.Make2DArray<int>(thresholdvalues, (int)Math.Sqrt(thresholdvalues.Length), (int)Math.Sqrt(thresholdvalues.Length));
-                //var twoDArray = ArrayUtils.Transpose(twoDiArray);
-
-                // NeoCortexUtils.DrawBitmap(twoDArray, 1024, 1024, $"{directorySetup}\\{input}-similarity={similaritystrng}.png", Color.Gray, Color.Green, text: similaritystrng);
+                // Ruby will add the bitmap comparator code here.
+                
             }
         }
     }

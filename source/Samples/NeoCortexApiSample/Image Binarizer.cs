@@ -1,4 +1,4 @@
-﻿using System;
+﻿/*using System;
 using System.IO;
 using NeoCortex;
 namespace Image_Binarizer
@@ -47,4 +47,4 @@ namespace Image_Binarizer
             return binaryArray;
         }
     }
-}
+}*/
