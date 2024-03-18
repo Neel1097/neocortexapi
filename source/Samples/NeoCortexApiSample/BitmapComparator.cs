@@ -26,8 +26,13 @@ namespace NeoCortexApiSample
                 {
                     matchingPixels++;
                 }
+    // Calculate the similarity percentage
+    double similarityPercentage = (double)matchingPixels / totalPixels * 100;
+
+        return similarityPercentage;
+
 }
 
 
 
-   
+
