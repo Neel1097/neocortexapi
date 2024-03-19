@@ -227,6 +227,8 @@ namespace NeoCortexApiSample
             var reverseEngineerExample = new ReverseEngineerExample();
             // Creating an instance of the jaccardIndex class.
             JaccardIndexCalculator jaccardIndex = new JaccardIndexCalculator();
+            // Create an instance of BitmapComparator
+            var bitmapComparator = new BitmapComparator(); 
             foreach (var input in inputValues)
             {
                 var inpSdr = encoder.Encode(input);
@@ -243,17 +245,25 @@ namespace NeoCortexApiSample
                 int inpSdrLength = inpSdr.Length;
                 // Adding the threshold to the reconstructed values by weighing the permanence.
                 double reconstructedInput = reverseEngineerExample.ReverseEngineerInput(probabilities, inpSdrLength);
-                Console.WriteLine($"Input SDR: {string.Join(", ", inpSdr)}");
+              
 
                 // Encode the reconstructed input value using the same encoder
                 int[] reconstructedSdr = encoder.Encode(reconstructedInput);
+              
+                //Printing the Input SDR and the Reconstructed SDR.
+                Console.WriteLine($"Input SDR: {string.Join(", ", inpSdr)}");
+                Console.WriteLine($"Reconstructed SDR: {string.Join(", ", reconstructedSdr)}");
 
-                
                 // Generate a bitmap to visualize the similarity
                 string similarityOutputPath = Path.Combine(outFolder, $"{input}jaccard={jaccardIndex}.png");
                 BitmapVisualizer.GenerateAndDrawBitmap(reconstructedSdr, similarityOutputPath, text: $"Jaccard: {jaccardIndex}");
-                // Ruby will add the bitmap comparator code here.
-                
+                // Bitmap comparator.
+                // Compare the similarity between the two bitmaps
+                Bitmap inputBitmap = new Bitmap(outputPath);
+                Bitmap reconstructedBitmap = new Bitmap(similarityOutputPath);
+                double similarityPercentage = BitmapComparator.Compare(inputBitmap, reconstructedBitmap);
+                Console.WriteLine($"Input: {input}, Bitmap Similarity Percentage: {similarityPercentage}");
+
             }
         }
     }
