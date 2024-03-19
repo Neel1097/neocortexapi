@@ -5,11 +5,8 @@ using System.Linq;
 using System.Runtime.Intrinsics.X86;
 using System.Text;
 using System.Threading.Tasks;
-
-namespace NeoCortexApiSample
+internal class BitmapComparator
 {
-    internal class BitmapComparator
-    {
         // Method to compare two bitmaps and calculate similarity percentage
         public static double Compare(Bitmap bmp1, Bitmap bmp2)
         {
@@ -35,14 +32,14 @@ namespace NeoCortexApiSample
                     {
                         matchingPixels++;
                     }
-                    // Calculate the similarity percentage
-                    double similarityPercentage = (double)matchingPixels / totalPixels * 100;
-
-                    return similarityPercentage;
+                    
 
                 }
             }
+            // Calculate the similarity percentage
+            double similarityPercentage = (double)matchingPixels / totalPixels * 100;
+
+            return similarityPercentage;
 
         }
-    }
 }
