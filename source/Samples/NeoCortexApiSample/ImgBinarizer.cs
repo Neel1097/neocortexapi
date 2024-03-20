@@ -14,7 +14,8 @@ public class ImgBinarizer
             //RedThreshold = 200,
             //GreenThreshold = 200
         };
-        
+        //string imagePath = "F:\\YOURDIRR\\Picture\\MNIST_6_0.png";
+        //string outputPath = "F:\\YOURDIRR\\Picture"; //Specify your desired output path
         ImageBinarizer bizer = new ImageBinarizer(parameters);
 
         var doubleArray = bizer.GetArrayBinary();
@@ -25,7 +26,7 @@ public class ImgBinarizer
         {
             for (int i = 0; i < wd; i++)
             {
-                intArray[j * wd - i] = (double)doubleArray[i, j, wd];
+                intArray[j * wd + i] = (double)doubleArray[i, j, 0];
             }
         }
         return intArray;
