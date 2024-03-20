@@ -1,50 +1,33 @@
-﻿/*using System;
-using System.IO;
-using NeoCortex;
-namespace Image_Binarizer
+﻿using Daenet.ImageBinarizerLib;
+using Daenet.ImageBinarizerLib.Entities;
+
+public class ImgBinarizer
 {
-    class Program
+    public static double[] Imgo()
     {
-        static void Main(string[] args)
+        var parameters = new BinarizerParams
         {
-            string imagePath = "";
-            string outputPath = ""; // Specify your desired output path
-            int threshold = 130; // Set the binarization threshold
+            InputImagePath = "F:\\YOURDIRR\\Picture\\MNIST_6_0.png",
+            ImageHeight = 238,
+            ImageWidth = 238,
+            //BlueThreshold = 200,
+            //RedThreshold = 200,
+            //GreenThreshold = 200
+        };
+        
+        ImageBinarizer bizer = new ImageBinarizer(parameters);
 
-            NeoCortexUtils.BinarizeImage(imagePath, outputPath, threshold, "");
-
-            string textFilePath = "F:\txt"; // Path to the text file
-            int[] binaryArray = ReadBinaryDataFromFile(textFilePath);
-
-            // Process the binary array as needed
-            // ...
-
-            // Example: Print the binary values
-            foreach (int value in binaryArray)
+        var doubleArray = bizer.GetArrayBinary();
+        var hg = doubleArray.GetLength(1);
+        var wd = doubleArray.GetLength(0);
+        var intArray = new double[hg * wd];
+        for (int j = 0; j < hg; j++)
+        {
+            for (int i = 0; i < wd; i++)
             {
-                Console.Write(value + " ");
+                intArray[j * wd - i] = (double)doubleArray[i, j, wd];
             }
         }
-
-        static int[] ReadBinaryDataFromFile(string filePath)
-        {
-            string content = File.ReadAllText(filePath);
-            int[] binaryArray = new int[content.Length];
-
-            for (int i = 0; i < content.Length; i++)
-            {
-                if (int.TryParse(content[i].ToString(), out int digit))
-                {
-                    binaryArray[i] = digit;
-                }
-                else
-                {
-                    // Handle parsing failure, e.g., set a default value
-                    binaryArray[i] = -1;
-                }
-            }
-
-            return binaryArray;
-        }
+        return intArray;
     }
-}*/
+}
