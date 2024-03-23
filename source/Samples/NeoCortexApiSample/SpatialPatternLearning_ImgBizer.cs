@@ -1,4 +1,5 @@
-﻿using Daenet.ImageBinarizerLib;
+﻿using Accord.Imaging.Filters;
+using Daenet.ImageBinarizerLib;
 using Daenet.ImageBinarizerLib.Entities;
 using LearningFoundation;
 using NeoCortex;
@@ -20,11 +21,11 @@ namespace NeoCortexApiSample
     /// Implements an experiment that demonstrates how to learn spatial patterns.
     /// SP will learn every presented input in multiple iterations.
     /// </summary>
-    public class SpatialPatternLearning
+    public class SpatialPatternLearning_ImgBizer
     {
         public void Run()
         {
-            Console.WriteLine($"Hello NeocortexApi! Experiment {nameof(SpatialPatternLearning)}");
+            Console.WriteLine($"Hello NeocortexApi! Experiment {nameof(SpatialPatternLearning_ImgBizer)}");
 
             // Used as a boosting parameters
             // that ensure homeostatic plasticity effect.
@@ -32,7 +33,7 @@ namespace NeoCortexApiSample
             double maxBoost = 5.0;
 
             // We will use 200 bits to represent an input vector (pattern).
-            int inputBits = 200;
+            int inputBits = 784;
 
             // We will build a slice of the cortex with the given number of mini-columns
             int numColumns = 1024;
@@ -58,9 +59,25 @@ namespace NeoCortexApiSample
             };
 
 
-            double max = 300;
+           
+            int[] inpSdr = ImgBinarizer.Imgo();
+            List<double> inputValues = new List<double>();
 
-            // double max = 200;
+            BinarySDRConverter converter = new BinarySDRConverter();
+            // Call the ConvertToDouble method with your inpSdr array
+            double convertedValue = converter.ConvertToDouble(inpSdr);
+
+            // Add the converted value to your list
+            inputValues.Add(convertedValue);
+            double max =inpSdr.Length;
+            Console.WriteLine($"Length of inpSdr - {max}");
+           
+            Console.WriteLine("\nElements of the array:");
+           
+            foreach (int num in inpSdr)
+            {
+                Console.Write(num);
+            }
 
 
 
@@ -79,21 +96,21 @@ namespace NeoCortexApiSample
 
 
             EncoderBase encoder = new ScalarEncoder(settings);
-
-
-            // We create here 100 random input values.
-            List<double> inputValues = new List<double>();
-
-            for (int i = 0; i < (int)max; i++)
-            {
-                inputValues.Add((double)i);
-            }
-
             var sp = RunExperiment(cfg, encoder, inputValues);
 
             RunRustructuringExperiment(sp, encoder, inputValues);
-        }
 
+
+            /*  // We create here 100 random input values.
+              List<double> inputValues = new List<double>();
+
+              for (int i = 0; i < (int)max; i++)
+              {
+                  inputValues.Add((double)i);
+
+
+              }*/
+        }
 
 
         /// <summary>
@@ -223,42 +240,56 @@ namespace NeoCortexApiSample
             //Calling the directory function to create the directory.
             var directorySetup = new ExperimentDirectorySetup(nameof(RunRustructuringExperiment));
             string outFolder = directorySetup.SetupExperimentDirectory();
-            //Creating an instance of the ReverseEngineeringEXample class.
-            var reverseEngineerClass = new ReverseEngineerClass();
             // Creating an instance of the jaccardIndex class.
-            JaccardIndexCalculator jaccardIndex = new JaccardIndexCalculator();
+            var jaccardIndexCalculator = new JaccardIndexCalculator(); // New Jaccard index calculator instance
             // Create an instance of BitmapComparator
-            var bitmapComparator = new BitmapComparator(); 
-            foreach (var input in inputValues)
+            var bitmapComparator = new BitmapComparator();
+
+            int[] inpSdr = ImgBinarizer.Imgo();// Directly get binarized values
+           
+            
+
+            // Generating the bitmap for the produced input SDR.
+            string outputPath = Path.Combine(outFolder,"input.png");
+           BitmapVisualizer.GenerateAndDrawBitmap(inpSdr, outputPath, text: null);// Calling the BitmapVisualiser fucntion to create the bitmaps.
+
+
+
+            Debug.WriteLine(inpSdr);
+           var actCols = sp.Compute(inpSdr, false);
+           var probabilities = sp.Reconstruct(actCols);
+           int inpSdrLength = inpSdr.Length;
+     
+            int[] reconstructedInput = new int[inpSdrLength];      
+            //Apply threshold directly to probabilities to reconstruct input as binary SDR
+            foreach (var kvp in probabilities)
             {
-                var inpSdr = encoder.Encode(input);
-
-                // Generating the bitmap for the produced input SDR.
-                string outputPath = Path.Combine(outFolder, $"{input}.png");
-                BitmapVisualizer.GenerateAndDrawBitmap(inpSdr, outputPath, text: null);// Calling the BitmapVisualiser fucntion to create the bitmaps.
-                Debug.WriteLine(inpSdr);
-                var actCols = sp.Compute(inpSdr, false);
-                var probabilities = sp.Reconstruct(actCols);
-                int inpSdrLength = inpSdr.Length;
-                // Adding the threshold to the reconstructed values by weighing the permanence.
-                double reconstructedInput = reverseEngineerClass.ReverseEngineerInput(probabilities, inpSdrLength);
-                //Encode the reconstructed input value using the same encoder
-                int[] reconstructedSdr = encoder.Encode(reconstructedInput);
-                //Printing the Input SDR and the Reconstructed SDR.
-                Console.WriteLine($"Input SDR: {string.Join(", ", inpSdr)}");
-                Console.WriteLine($"Reconstructed SDR: {string.Join(", ", reconstructedSdr)}");
-
-                // Generate a bitmap to visualize the similarity
-                string similarityOutputPath = Path.Combine(outFolder, $"{input}jaccard={jaccardIndex}.png");
-                BitmapVisualizer.GenerateAndDrawBitmap(reconstructedSdr, similarityOutputPath, text: $"Jaccard: {jaccardIndex}");
-                // Bitmap comparator.
-                // Compare the similarity between the two bitmaps
-                Bitmap inputBitmap = new Bitmap(outputPath);
-                Bitmap reconstructedBitmap = new Bitmap(similarityOutputPath);
-                double similarityPercentage = BitmapComparator.Compare(inputBitmap, reconstructedBitmap);
-                Console.WriteLine($"Input: {input}, Bitmap Similarity Percentage: {similarityPercentage}");
-
+                // Check if the probability is greater than or equal to 0.5
+                if (kvp.Value >= 8)
+                {
+                    // Set the corresponding index in the reconstructed input to 1
+                    reconstructedInput[kvp.Key] = 1;
+                }
             }
+
+            //Printing the Input SDR and the Reconstructed SDR.
+            Console.WriteLine($"\nInput SDR: {string.Join(", ", inpSdr)}\n");
+            Console.WriteLine($"Reconstructed SDR: {string.Join(", ", reconstructedInput)}");
+            // Calculate the Jaccard index
+            double jaccardIndex = jaccardIndexCalculator.CalculateJaccardIndex(inpSdr, reconstructedInput);
+
+            // Generate a bitmap to visualize the similarity
+            string similarityOutputPath = Path.Combine(outFolder, $"jaccard={jaccardIndex}.png");
+            BitmapVisualizer.GenerateAndDrawBitmap(reconstructedInput, similarityOutputPath, text: $"Jaccard: {jaccardIndex}");
+            // Bitmap comparator.
+            // Compare the similarity between the two bitmaps
+            Bitmap inputBitmap = new Bitmap(outputPath);
+            Bitmap reconstructedBitmap = new Bitmap(similarityOutputPath);
+            double similarityPercentage = BitmapComparator.Compare(inputBitmap, reconstructedBitmap);
+            Console.WriteLine($"Input: Image, Bitmap Similarity Percentage: {similarityPercentage}");
+            Console.WriteLine($"Jaccard Index Percentage: {jaccardIndex*100}");
+
+
         }
     }
 }

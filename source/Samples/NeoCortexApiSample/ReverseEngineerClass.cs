@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-
-public class ReverseEngineerExample
+public class ReverseEngineerClass
 {
     // Example function to reverse engineer the original input from spatial pooler output
     public double ReverseEngineerInput(Dictionary<int, double> permanences, int inputLength)
@@ -51,12 +51,13 @@ public class ReverseEngineerExample
     // Example function to map an input index back to the original input value (simplified)
     private double MapIndexToInput(int index)
     {
-        // This is a simplified example; in a real scenario, you'd have a more complex mapping
+        // Scaling factor for mapping index to input value
         return index * ScalingFactor;
     }
 
     // Constants
     private const double Threshold = 0.5; // Permanence threshold to consider a synapse as active
     private const double DefaultValue = 0.0; // Default value if no potential input is found
-    private const double ScalingFactor = 0.1; // Scaling factor for mapping index to input value
+    private const double ScalingFactor = 0.1; 
 }
+
