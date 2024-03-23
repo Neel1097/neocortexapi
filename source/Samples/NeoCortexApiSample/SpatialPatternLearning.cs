@@ -175,7 +175,7 @@ namespace NeoCortexApiSample
             }
 
             // Learning process will take 1000 iterations (cycles)
-            int maxSPLearningCycles = 5;
+            int maxSPLearningCycles = 500;
 
             int numStableCycles = 0;
 
@@ -224,7 +224,7 @@ namespace NeoCortexApiSample
             var directorySetup = new ExperimentDirectorySetup(nameof(RunRustructuringExperiment));
             string outFolder = directorySetup.SetupExperimentDirectory();
             //Creating an instance of the ReverseEngineeringEXample class.
-            var reverseEngineerExample = new ReverseEngineerExample();
+            var reverseEngineerClass = new ReverseEngineerClass();
             // Creating an instance of the jaccardIndex class.
             JaccardIndexCalculator jaccardIndex = new JaccardIndexCalculator();
             // Create an instance of BitmapComparator
@@ -236,20 +236,14 @@ namespace NeoCortexApiSample
                 // Generating the bitmap for the produced input SDR.
                 string outputPath = Path.Combine(outFolder, $"{input}.png");
                 BitmapVisualizer.GenerateAndDrawBitmap(inpSdr, outputPath, text: null);// Calling the BitmapVisualiser fucntion to create the bitmaps.
-                
-
-
                 Debug.WriteLine(inpSdr);
                 var actCols = sp.Compute(inpSdr, false);
                 var probabilities = sp.Reconstruct(actCols);
                 int inpSdrLength = inpSdr.Length;
                 // Adding the threshold to the reconstructed values by weighing the permanence.
                 double reconstructedInput = reverseEngineerExample.ReverseEngineerInput(probabilities, inpSdrLength);
-              
-
-                // Encode the reconstructed input value using the same encoder
+                //Encode the reconstructed input value using the same encoder
                 int[] reconstructedSdr = encoder.Encode(reconstructedInput);
-              
                 //Printing the Input SDR and the Reconstructed SDR.
                 Console.WriteLine($"Input SDR: {string.Join(", ", inpSdr)}");
                 Console.WriteLine($"Reconstructed SDR: {string.Join(", ", reconstructedSdr)}");

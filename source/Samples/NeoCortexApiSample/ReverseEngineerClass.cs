@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-
-public class ReverseEngineerExample
+public class ReverseEngineerClass
 {
     // Example function to reverse engineer the original input from spatial pooler output
     public double ReverseEngineerInput(Dictionary<int, double> permanences, int inputLength)
@@ -60,3 +60,4 @@ public class ReverseEngineerExample
     private const double DefaultValue = 0.0; // Default value if no potential input is found
     private const double ScalingFactor = 0.1; 
 }
+
