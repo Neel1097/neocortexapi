@@ -1512,10 +1512,10 @@ namespace NeoCortexApi
             }
 
             // Debugging: Print important information for validation ( permanences,columns and active mini columns
-            Console.WriteLine("Active Mini Columns: " + string.Join(", ", activeMiniColumns));
-            Console.WriteLine("Columns: " + string.Join(", ", columns.Select(c => c.Index)));
-            Console.WriteLine("Permanences: " + string.Join(", ", permanences.Select(kvp => $"{kvp.Key}: {kvp.Value}")));
-            Console.WriteLine("\n");
+           // Console.WriteLine("Active Mini Columns: " + string.Join(", ", activeMiniColumns));
+           // Console.WriteLine("Columns: " + string.Join(", ", columns.Select(c => c.Index)));
+           // Console.WriteLine("Permanences: " + string.Join(", ", permanences.Select(kvp => $"{kvp.Key}: {kvp.Value}")));
+            //Console.WriteLine("\n");
 
             return permanences;
         }
