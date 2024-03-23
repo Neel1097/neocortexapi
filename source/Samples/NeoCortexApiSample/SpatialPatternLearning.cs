@@ -241,7 +241,7 @@ namespace NeoCortexApiSample
                 var probabilities = sp.Reconstruct(actCols);
                 int inpSdrLength = inpSdr.Length;
                 // Adding the threshold to the reconstructed values by weighing the permanence.
-                double reconstructedInput = reverseEngineerExample.ReverseEngineerInput(probabilities, inpSdrLength);
+                double reconstructedInput = reverseEngineerClass.ReverseEngineerInput(probabilities, inpSdrLength);
                 //Encode the reconstructed input value using the same encoder
                 int[] reconstructedSdr = encoder.Encode(reconstructedInput);
                 //Printing the Input SDR and the Reconstructed SDR.
