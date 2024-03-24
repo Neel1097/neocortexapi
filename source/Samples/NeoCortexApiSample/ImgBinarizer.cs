@@ -7,13 +7,11 @@ public class ImgBinarizer
     {
         var parameters = new BinarizerParams
         {
-            InputImagePath = "F:\\YOURDIRR\\Picture\\1004.png",
+            InputImagePath = "C:\\Users\\ACER\\OneDrive\\Desktop\\one.jpg",
             ImageHeight = 28,
             ImageWidth = 28,
             
         };
-        //string imagePath = "F:\\YOURDIRR\\Picture\\MNIST_6_0.png";
-        //string outputPath = "F:\\YOURDIRR\\Picture"; //Specify your desired output path
         ImageBinarizer bizer = new ImageBinarizer(parameters);
 
         var doubleArray = bizer.GetArrayBinary();
