@@ -279,7 +279,7 @@ namespace NeoCortexApiSample
             double jaccardIndex = jaccardIndexCalculator.CalculateJaccardIndex(inpSdr, reconstructedInput);
 
             // Generate a bitmap to visualize the similarity
-            string similarityOutputPath = Path.Combine(outFolder, $"jaccard={jaccardIndex}.png");
+            string similarityOutputPath = Path.Combine(outFolder, $"Jaccard_Index ={jaccardIndex*100}.png");
             BitmapVisualizer.GenerateAndDrawBitmap(reconstructedInput, similarityOutputPath, text: $"Jaccard: {jaccardIndex}");
             // Bitmap comparator.
             // Compare the similarity between the two bitmaps
