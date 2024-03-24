@@ -226,7 +226,7 @@ namespace NeoCortexApiSample
             //Creating an instance of the ReverseEngineeringEXample class.
             var reverseEngineerClass = new ReverseEngineerClass();
             // Creating an instance of the jaccardIndex class.
-            JaccardIndexCalculator jaccardIndex = new JaccardIndexCalculator();
+            var jaccardIndexCalculator = new JaccardIndexCalculator(); // New Jaccard index calculator instance
             // Create an instance of BitmapComparator
             var bitmapComparator = new BitmapComparator(); 
             foreach (var input in inputValues)
@@ -247,16 +247,19 @@ namespace NeoCortexApiSample
                 //Printing the Input SDR and the Reconstructed SDR.
                 Console.WriteLine($"Input SDR: {string.Join(", ", inpSdr)}");
                 Console.WriteLine($"Reconstructed SDR: {string.Join(", ", reconstructedSdr)}");
+                // Calculate the Jaccard index
+                double jaccardIndex = jaccardIndexCalculator.CalculateJaccardIndex(inpSdr, reconstructedSdr);
 
                 // Generate a bitmap to visualize the similarity
-                string similarityOutputPath = Path.Combine(outFolder, $"{input}jaccard={jaccardIndex}.png");
-                BitmapVisualizer.GenerateAndDrawBitmap(reconstructedSdr, similarityOutputPath, text: $"Jaccard: {jaccardIndex}");
+                string similarityOutputPath = Path.Combine(outFolder, $"{input}_Jaccard_Index ={jaccardIndex*100}.png");
+                BitmapVisualizer.GenerateAndDrawBitmap(reconstructedSdr, similarityOutputPath, text: $"Jaccard_Index_Percentage = : {jaccardIndex*100}");
                 // Bitmap comparator.
                 // Compare the similarity between the two bitmaps
                 Bitmap inputBitmap = new Bitmap(outputPath);
                 Bitmap reconstructedBitmap = new Bitmap(similarityOutputPath);
                 double similarityPercentage = BitmapComparator.Compare(inputBitmap, reconstructedBitmap);
                 Console.WriteLine($"Input: {input}, Bitmap Similarity Percentage: {similarityPercentage}");
+                Console.WriteLine($"Input: {input}, Jaccard Index Percentage =  {jaccardIndex * 100}");
 
             }
         }
