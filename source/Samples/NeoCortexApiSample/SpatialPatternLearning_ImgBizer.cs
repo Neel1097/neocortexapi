@@ -240,8 +240,6 @@ namespace NeoCortexApiSample
             //Calling the directory function to create the directory.
             var directorySetup = new ExperimentDirectorySetup(nameof(RunRustructuringExperiment));
             string outFolder = directorySetup.SetupExperimentDirectory();
-            //Creating an instance of the ReverseEngineeringEXample class.
-            var reverseEngineerExample = new ReverseEngineerExample();
             // Creating an instance of the jaccardIndex class.
             var jaccardIndexCalculator = new JaccardIndexCalculator(); // New Jaccard index calculator instance
             // Create an instance of BitmapComparator
@@ -267,7 +265,7 @@ namespace NeoCortexApiSample
             foreach (var kvp in probabilities)
             {
                 // Check if the probability is greater than or equal to 0.5
-                if (kvp.Value >= 5)
+                if (kvp.Value >= 8)
                 {
                     // Set the corresponding index in the reconstructed input to 1
                     reconstructedInput[kvp.Key] = 1;
@@ -289,7 +287,7 @@ namespace NeoCortexApiSample
             Bitmap reconstructedBitmap = new Bitmap(similarityOutputPath);
             double similarityPercentage = BitmapComparator.Compare(inputBitmap, reconstructedBitmap);
             Console.WriteLine($"Input: Image, Bitmap Similarity Percentage: {similarityPercentage}");
-
+            Console.WriteLine($"Jaccard Index Percentage: {jaccardIndex*100}");
 
 
         }
