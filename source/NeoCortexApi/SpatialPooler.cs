@@ -132,7 +132,7 @@ namespace NeoCortexApi
             }
 
             conn.Memory.set(colList);
-                        
+
             //Initialize state meta-management statistics
             conn.HtmConfig.OverlapDutyCycles = new double[numColumns];
             conn.HtmConfig.ActiveDutyCycles = new double[numColumns];
@@ -599,7 +599,7 @@ namespace NeoCortexApi
             return HtmCompute.CalcAvgSpanOfConnectedSynapses(c.GetColumn(columnIndex), c.HtmConfig);
         }
 
-        
+
         /// <summary>
         /// The primary method in charge of learning. Adapts the permanence values of the synapses based on the input vector, 
         /// and the chosen columns after inhibition round. Permanence values are increased for synapses connected to input bits
@@ -1445,7 +1445,7 @@ namespace NeoCortexApi
         /// <param name="activeMiniColumns">The array of active mini columns.</param>
         /// <returns>Dictionary of inputs, with permanences resulted from acurrently active mini-columns.</returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public Dictionary<int, double> Reconstruct(int[] activeMiniColumns)
+        /*public Dictionary<int, double> Reconstruct(int[] activeMiniColumns)
         {
             if (activeMiniColumns == null)
             {
@@ -1479,7 +1479,47 @@ namespace NeoCortexApi
             }
 
             return permancences;
+        }*/
+        public Dictionary<int, double> Reconstruct(int[] activeMiniColumns)
+        {
+            if (activeMiniColumns is null)
+            {
+                throw new ArgumentNullException(nameof(activeMiniColumns));
+            }
+
+            var columns = connections.GetColumnList(activeMiniColumns);
+            Dictionary<int, double> permanences = new Dictionary<int, double>();
+
+            // Iterate through all columns and collect all synapses.
+            foreach (var column in columns)
+            {
+                column.ProximalDendrite.Synapses.ForEach(s =>
+                {
+                    double currPerm = 0.0;
+
+                    // Check if the key already exists
+                    if (permanences.TryGetValue(s.InputIndex, out currPerm))
+                    {
+                        // Key exists, update the value
+                        permanences[s.InputIndex] = s.Permanence + currPerm;
+                    }
+                    else
+                    {
+                        // Key doesn't exist, add a new key-value pair
+                        permanences[s.InputIndex] = s.Permanence;
+                    }
+                });
+            }
+
+            // Debugging: Print important information for validation ( permanences,columns and active mini columns
+           // Console.WriteLine("Active Mini Columns: " + string.Join(", ", activeMiniColumns));
+           // Console.WriteLine("Columns: " + string.Join(", ", columns.Select(c => c.Index)));
+           // Console.WriteLine("Permanences: " + string.Join(", ", permanences.Select(kvp => $"{kvp.Key}: {kvp.Value}")));
+            //Console.WriteLine("\n");
+
+            return permanences;
         }
+
 
 
         public void Serialize(object obj, string name, StreamWriter sw)
