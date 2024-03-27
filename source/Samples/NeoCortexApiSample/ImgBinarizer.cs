@@ -7,7 +7,7 @@ public class ImgBinarizer
     {
         var parameters = new BinarizerParams
         {
-            InputImagePath = "C:\\Users\\ACER\\OneDrive\\Desktop\\one.jpg",
+            InputImagePath = "F:\\YOURDIRR\\Picture\\1144.png",
             ImageHeight = 28,
             ImageWidth = 28,
             
