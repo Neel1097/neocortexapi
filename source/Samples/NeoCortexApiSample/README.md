@@ -118,6 +118,7 @@ The user selects an option by entering a corresponding number. The chosen experi
 
 9. **BinarySDRConverter.cs** - This C# code defines a BinarySDRConverter class with a method ConvertToDouble that converts a binary sparse distributed representation (SDR) array into a double value.
     The link to all the classes mentioned above is given here -[Classes Link](https://github.com/Neel1097/Team-ByteBaite_neocortexapi/tree/master/source/Samples/NeoCortexApiSample)
+
 **[Go to top &uarr;] (#Overview) **
 ### Reconstruct Method:
 The accuracy of reconstructing spatial patterns is assessed using a learning algorithm, with the Spatial Pooler (SP) serving as the core algorithm for pattern learning. This algorithm converts the input into a Sparse Distributed Representation (SDR). The latest version of the neocortex API introduces a novel function named Reconstruct (), designed to reverse the SP's operation by reconstructing the input from the SDR.
