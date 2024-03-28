@@ -17,10 +17,10 @@
 * [Phases of SP](#Phases-of-SP)
 * [Reconstructing the SP algorithm](#Reconstructing-the-SP-algorithm)
 * [Methodology](#Methodology)
-   * Reconstruct Methods
-   * Phase of Reconstruction
-   * Learning Phase For the integer input
-   * Learning Phase For the image input
+   * [Reconstruct Methods](#Reconstruct-Methods)
+   * [Phase of Reconstruction](#Phase-of-Reconstruction)
+   * [Learning Phase For the integer input](#Learning-Phase-For-the-integer-input)
+   * [Learning Phase For the image input](#Learning-Phase-For-the-image-input)
 * [Findings](#Findings)
 
 
