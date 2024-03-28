@@ -16,7 +16,7 @@
 * [Spatial Pooler](#Spatial-Pooler)
 * [SP Functions](#SP-Functions)
 * [Phases of SP](#Phases-of-SP)
-* [Methodology](METHODOLGY)	
+* [Methodology](#METHODOLGY)	
    * [Class Descriptions](####There-are-in-total-10-Methods-used-in-the-Experiment)
    * [Reconstruct Methods](#Reconstruct-Methods)
    * [Phase of Reconstruction](#Phase-of-Reconstruction)
