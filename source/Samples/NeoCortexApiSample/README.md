@@ -16,7 +16,7 @@
 * [Spatial Pooler](#Spatial-Pooler)
 * [SP Functions](#SP-Functions)
 * [Phases of SP](#Phases-of-SP)
-* [Methodology](#Methodology)	
+* [Methodology](METHODOLGY)	
    * [Class Descriptions](####There-are-in-total-10-Methods-used-in-the-Experiment)
    * [Reconstruct Methods](#Reconstruct-Methods)
    * [Phase of Reconstruction](#Phase-of-Reconstruction)
@@ -95,8 +95,8 @@ Source: https://www.frontiersin.org/articles/10.3389/fncom.2017.00111/full
  
  **[Go to top &uarr;] (#Overview) **
 
-## METHODOLGY( Code Structure)
-#### There are in-total 10 Methods used in the Experiment:
+## METHODOLGY:
+#### There are in-total 10 Methods used in the Experiment keeping in mind the concept of code reusabilty:
 1. **SpatialPatternLearning.cs**-  This C# code showcases an experiment focusing on spatial pattern learning using the NeoCortex API. It utilizes the Hierarchical Temporal Memory (HTM) model, particularly the Spatial Pooler (SP) algorithm, to learn patterns from input data presented as scalar values. The script iteratively trains the SP on a range of input values, tracks its stability, and reconstructs input patterns for accuracy evaluation. Moreover, it calculates the Jaccard index and performs bitmap comparisons to gauge the similarity between original and reconstructed patterns.
 
 2. **ReverseEngineerClass.cs** - This C# code provides a method (`ReverseEngineerInput`) to reverse engineer potential input values from the output of a spatial pooler algorithm. It calculates the average permanence values for synapses connected to input indices, identifies potentially active inputs based on a threshold, and maps these indices back to original input values. Finally, it returns the average of potential input values as the reconstructed input.
