@@ -6,7 +6,7 @@
 ### An experiment to demonstrate how the reconstruction method recreates the images and texts learned by the Spatial Pooler method using C#.
 
 * [Overview](#Overview)
-* [Problem Statement] (#Problem-Statement)
+* [Problem Statement](#Problem-Statement)
 * [Introduction](#Introduction)
 	* [Hierarchical temporal memory](#Hierarchical-temporal-memory)
 	* [HTM Encoder](#HTM-Encoder)
@@ -14,7 +14,7 @@
 * [Sparse Distributed Representation](##Sparse-Distributed-Representation)
 * [Spatial Pooler Overview](#Spatial Pooler Overview)
 * [SP Functions](#SP Functions)
-* [Phases of SP] (#Phases-of-SP)
+* [Phases of SP](#Phases-of-SP)
 * [Reconstructing the SP algorithm](#Reconstructing-the-SP-algorithm)
 * [Methodology](#Methodology)
    * Reconstruct Methods
