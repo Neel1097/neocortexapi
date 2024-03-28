@@ -17,7 +17,7 @@
 * [SP Functions](#SP-Functions)
 * [Phases of SP](#Phases-of-SP)
 * [Methodology](#METHODOLGY)
-	* [Class Descriptions](#There-are-in---total-10-Methods-used-in-the-Experiment-keeping-in-mind-the-concept-of-code-reusabilty)
+	* [Class Descriptions](#There-are-in-total-10-Methods-used-in-the-Experiment-keeping-in-mind-the-concept-of-code-reusabilty)
 	* [Reconstruct Methods](#Reconstruct-Method)
    		* [Phase of Reconstruction](#Phase-of-Reconstruction)
    		* [Learning Phase For the integer input](#Learning-Phase-For-the-integer-input)
