@@ -6,7 +6,6 @@
 ### An experiment to demonstrate how the reconstruction method recreates the images and texts learned by the Spatial Pooler method using C#.
 
 * [Overview](#Overview)
-* [Contributors](#Contributers)
 * [Problem Statement] (#Problem-Statement)
 * [Introduction](#Introduction)
 * [Hierarchical temporal memory] (#Hierarchical-temporal-memory)
@@ -23,19 +22,13 @@
    * Learning Phase For the image input
 * [Findings](#Findings)
 
-## Contributors:
-
-This project is created by the joint efforts of
-* [Subham Singh](https://github.com/Subham2901)
-* [Amit Maity](https://github.com/Neel1097)
-* [Rubi Kiran](https://github.com/RubiKirann)
 
 ## Problem Statement: 
 
 Spatial Pooler converts the input into the SDR. The new version of the neocortexapi provides a method Reconstruct (), which performs the inverse function of the SP. It reconstructs the input from the input. Your task is to create an experiment that shows how the reconstruction works. The experiment will first learn the spatial input (both numbers and images), and then, after the SP has entered the stable state, it will start the reconstruction of all learned patterns.
 The experiment should show visually and mathematically the difference between the input and reconstructed pattern. Visualize result. Provide multiple experiments using numerical (use scalar encoder) and image inputs (use binarizer). Represent the difference between input and output mathematically. Ref: Method Reconstruct in SpatialPooler.cs.
  
- ## Introduction:
+ # Introduction:
  
  In this project, an experiment is performed that makes us indulge with the knowledge of spatial pooler, an integral component in the neocortexapi. The Spatial Pooler plays a pivotal role in converting input into Sparse Distributed Representations (SDRs), the newly updated version of the neocortexapi provided us with a highly efficient working model of a method called reconstruct (), which is capable of performing the inverse function of the spatial pooler.
 The ultimate goal of this experiment is to reconstruct the input provided to the spatial pooler through scalar encoders for numerical inputs and image binarizer for pictorial data. The entire experiment is performed in two sections, initially a scalar encoder or image binariser is used to feed into the spatial pooler such that it can produce the SDR and reach a stable state, and once the program reaches a stable state and the initiation of the next section begins, where the output from the Spatial Pooler function is fed into the reconstruct method to verify and test the accuracy of the reconstruct method. The final step of the experiment is to draw comparisons by using different metrices which can compare the similarity of the numbers or the images that were fed into the encoders with the final output received from the reconstruct () method.
