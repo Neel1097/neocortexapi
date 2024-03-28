@@ -34,16 +34,15 @@ The experiment should show visually and mathematically the difference between th
  
  In this project, an experiment is performed that makes us indulge with the knowledge of spatial pooler, an integral component in the neocortexapi. The Spatial Pooler plays a pivotal role in converting input into Sparse Distributed Representations (SDRs), the newly updated version of the neocortexapi provided us with a highly efficient working model of a method called reconstruct (), which is capable of performing the inverse function of the spatial pooler.
 The ultimate goal of this experiment is to reconstruct the input provided to the spatial pooler through scalar encoders for numerical inputs and image binarizer for pictorial data. The entire experiment is performed in two sections, initially a scalar encoder or image binariser is used to feed into the spatial pooler such that it can produce the SDR and reach a stable state, and once the program reaches a stable state and the initiation of the next section begins, where the output from the Spatial Pooler function is fed into the reconstruct method and a resultant reconstructed SDR is produced.Then to verify and test the accuracy of the reconstruct method. The final step of the experiment is performed where comparisons were drawn by using different metrices(Jaccard Index) which can compare the similarity of the input SDR and reconstructed SDR  and then bitmaps were drawn from the input SDRs and the reconstructed SDRS and the visual similarity was compared.
-
-    **[Go to top &uarr;] (#Overview)**
+**[Go to top &uarr;](#Overview)**
   
 
 ## Hierarchical temporal memory:
- 
+
 Hierarchical temporal memory (HTM) provides a theoretical framework that models several key computational principles of the neocortex. This paper analyzes an important component of HTM, the HTM spatial pooler (SP). The HTM spatial pooler represents a neurally inspired learning algorithm for creating sparse representations from noisy data streams in an online fashion. It models how neurons learn feedforward connections and form efficient input representations. It converts arbitrary binary input patterns into sparse distributed representations (SDRs) using competitive Hebbian learning rules and homeostatic excitability control. (Source: https://www.numenta.com/resources/research-publications/papers/htm-spatial-pooler-neocortical-algorithm-for-online-sparse-distributed-coding/)
 ![spatialpooler](https://github.com/Neel1097/Team-ByteBaite_neocortexapi/assets/60136654/b8b2db0b-3935-46cc-a203-5a3b6c22e68d)
 
- **[Go to top &uarr;] (#Overview) **
+**[Go to top &uarr;](#Overview)**
  
 ## HTM Encoder:
 
@@ -66,7 +65,7 @@ According to recent findings in neuroscience, the brain processes information us
 (Source: https://www.cortical.io/science/sparse-distributed-representations/?highlight=SDR)
 
 
- **[Go to top &uarr;] (#Overview) **
+**[Go to top &uarr;](#Overview)**
 
 
 ## The Overview of the project: 
@@ -93,7 +92,7 @@ Here's a simplified explanation of the Spatial Pooler's function in the HTM cont
 The SP consists of three phases, namely overlap, inhibition, and learning. Within an SP, there exist many columns. Each column has a unique set of proximal synapses connected via a proximal dendrite segment. Each proximal synapse tentatively connects to a single column from the input, i.e., each column in the SP connects to a specific attribute within the input. The input column’s activity level is used as the synaptic input, i.e., an active column is a “1” and an inactive column is a “0”. To determine whether a synapse is connected or not, the synapse’s permanence value is checked. If the permanence value is at least equal to the connected threshold the synapse is connected; otherwise, it is unconnected. The permanence values are scalars in the closed interval [0,1]. 
 Source: https://www.frontiersin.org/articles/10.3389/fncom.2017.00111/full
  
- **[Go to top &uarr;] (#Overview) **
+**[Go to top &uarr;](#Overview)**
 
 ## METHODOLGY:
 #### There are in-total 10 Methods used in the Experiment keeping in mind the concept of code reusabilty:
@@ -119,7 +118,7 @@ The user selects an option by entering a corresponding number. The chosen experi
 9. **BinarySDRConverter.cs** - This C# code defines a BinarySDRConverter class with a method ConvertToDouble that converts a binary sparse distributed representation (SDR) array into a double value.
     The link to all the classes mentioned above is given here -[Classes Link](https://github.com/Neel1097/Team-ByteBaite_neocortexapi/tree/master/source/Samples/NeoCortexApiSample)
 
- **[Go to top &uarr;] (#Overview) **
+**[Go to top &uarr;](#Overview)**
 ### Reconstruct Method:
 The accuracy of reconstructing spatial patterns is assessed using a learning algorithm, with the Spatial Pooler (SP) serving as the core algorithm for pattern learning. This algorithm converts the input into a Sparse Distributed Representation (SDR). The latest version of the neocortex API introduces a novel function named Reconstruct (), designed to reverse the SP's operation by reconstructing the input from the SDR.
 
@@ -131,7 +130,7 @@ The Reconstruction of Input and the similarity of bitmaps obtained by:
 			1. Reconstruct the input from activecol at Permanence Threshold (0.5)
 			2. Generate the two bitmaps representing the input SDR and the reconstructed SDR.
 			3. Bitmaps similarities.
-**[Go to top &uarr;] (#Overview) **
+**[Go to top &uarr;](#Overview)**
 
 ### Learning Phase For the image input: 
 The image underwent binarization, converting it into a one-dimensional array which was further transformed into a list. This list was then 			converted into a double numerical value using the "BinarySDRConverter" class before being fed into the Spatial pattern learning method to 			train the spatial pooler. The training process persisted until the spatial pooler achieved stability, with oversight from the 					HomeostaticPlasticityController (HPC) class.
@@ -146,7 +145,9 @@ This project aims to implement the Reconstruct functionality for integer and ima
 2. The results of Comparisons (Avg similarities/Jaccard Index) for different sets of integer values [100,300,500,700,1000].
    
    ![Capture 7](https://github.com/Neel1097/Team-ByteBaite_neocortexapi/assets/60136654/0858572b-29c1-42a4-ae4a-8d96649cc3ea)
-**[Go to top &uarr;] (#Overview) **
+
+
+**[Go to top &uarr;](#Overview)**
 
 
 
