@@ -12,7 +12,8 @@
 	* [HTM Encoder](#HTM-Encoder)
 * [The Encoding Process](#The-Encoding-Process)
 * [Sparse Distributed Representation](##Sparse-Distributed-Representation)
-* [Spatial Pooler Overview](#Spatial-Pooler-Overview)
+* [The Overview of the project](#The-Overview-of-the-project)
+* [Spatial Pooler](#Spatial-Pooler)
 * [SP Functions](#SP-Functions)
 * [Phases of SP](#Phases-of-SP)
 * [Reconstructing the SP algorithm](#Reconstructing-the-SP-algorithm)
@@ -64,10 +65,13 @@ According to recent findings in neuroscience, the brain processes information us
 
 # The Overview of the project: 
 
-In the HTM framework, the Spatial Pooler (SP) is a component responsible for creating sparse distributed representations (SDR) of input data. The primary goal of the Spatial Pooler is to transform input patterns into a stable and sparse representation that subsequent stages of the neural network can easily use.  
-In the HTM framework, the Spatial Pooler (SP) is a component responsible for creating sparse distributed representations (SDR) of input data. The primary goal of the Spatial Pooler is to transform input patterns into a stable and sparse representation that subsequent stages of the neural network can easily use.  
-In the HTM framework, the Spatial Pooler (SP) is a component responsible for creating sparse distributed representations (SDR) of input data. The primary goal of the Spatial Pooler is to transform input patterns into a stable and sparse representation that subsequent stages of the neural network can easily use.  
+ 
 ![Archi drawio](https://github.com/Neel1097/Team-ByteBaite_neocortexapi/assets/60136654/0119fc4f-d480-45f6-9023-0ab9d3d75c82)
+
+# Spatial Pooler:
+In the HTM framework, the Spatial Pooler (SP) is a component responsible for creating sparse distributed representations (SDR) of input data. The primary goal of the Spatial Pooler is to transform input patterns into a stable and sparse representation that subsequent stages of the neural network can easily use.  
+In the HTM framework, the Spatial Pooler (SP) is a component responsible for creating sparse distributed representations (SDR) of input data. The primary goal of the Spatial Pooler is to transform input patterns into a stable and sparse representation that subsequent stages of the neural network can easily use.  
+In the HTM framework, the Spatial Pooler (SP) is a component responsible for creating sparse distributed representations (SDR) of input data. The primary goal of the Spatial Pooler is to transform input patterns into a stable and sparse representation that subsequent stages of the neural network can easily use. 
 
 # SP Functions:
 
