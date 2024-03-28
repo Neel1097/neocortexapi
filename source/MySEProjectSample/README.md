@@ -86,8 +86,9 @@ Source: https://www.frontiersin.org/articles/10.3389/fncom.2017.00111/full
  ## Reconstructing the SP algorithm:
  
 To “Reconstruct the SP algorithm” you could use the information of the connected synapses lying in the SP data structure. The first step would be to get the synapses with the function getConnectedSynapses.
-Here is an example from the NuPIC Github repo:
-![Capture](https://github.com/Neel1097/Team-ByteBaite_neocortexapi/assets/60136654/642e46ce-1018-4ea3-a278-2854aca7af32)
+![Archi drawio](https://github.com/Neel1097/Team-ByteBaite_neocortexapi/assets/60136654/0119fc4f-d480-45f6-9023-0ab9d3d75c82)
+
+
 
 
 # METHODOLGY
