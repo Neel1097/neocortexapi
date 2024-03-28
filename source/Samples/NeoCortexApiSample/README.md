@@ -122,10 +122,10 @@ The user selects an option by entering a corresponding number. The chosen experi
 ### Reconstruct Method:
 The accuracy of reconstructing spatial patterns is assessed using a learning algorithm, with the Spatial Pooler (SP) serving as the core algorithm for pattern learning. This algorithm converts the input into a Sparse Distributed Representation (SDR). The latest version of the neocortex API introduces a novel function named Reconstruct (), designed to reverse the SP's operation by reconstructing the input from the SDR.
 
-	### Phase of Reconstruction:
+### Phase of Reconstruction:
  		During the reconstruction phase, the Reconstruct () method from the spatial pooler class is employed. This method accepts active columns as input and 		provides a list of columns corresponding to the active mini-columns. For each retrieved column, the sum of permanence is calculated across all 			synapses for every input index. Permanence denotes the strength of the connection between a column's synapse and the corresponding input index.
 
-	### Learning Phase For the integer input: 
+### Learning Phase For the integer input: 
 
 			The Reconstruction of Input and the similarity of bitmaps obtained by:
 			1. Reconstruct the input from activecol at Permanence Threshold (0.5)
