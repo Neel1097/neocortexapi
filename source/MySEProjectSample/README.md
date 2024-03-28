@@ -16,7 +16,6 @@
 * [Spatial Pooler](#Spatial-Pooler)
 * [SP Functions](#SP-Functions)
 * [Phases of SP](#Phases-of-SP)
-* [Reconstructing the SP algorithm](#Reconstructing-the-SP-algorithm)
 * [Methodology](#Methodology)
    * [Reconstruct Methods](#Reconstruct-Methods)
    * [Phase of Reconstruction](#Phase-of-Reconstruction)
@@ -87,14 +86,6 @@ The SP consists of three phases, namely overlap, inhibition, and learning. Withi
 Source: https://www.frontiersin.org/articles/10.3389/fncom.2017.00111/full
  
  **[Go to top &uarr;] (#Overview) **
-
- ## Reconstructing the SP algorithm:
- 
-To “Reconstruct the SP algorithm” you could use the information of the connected synapses lying in the SP data structure. The first step would be to get the synapses with the function getConnectedSynapses.
-
-
-
-
 
 # METHODOLGY
 
