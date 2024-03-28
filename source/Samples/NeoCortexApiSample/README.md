@@ -34,6 +34,7 @@ The experiment should show visually and mathematically the difference between th
  
  In this project, an experiment is performed that makes us indulge with the knowledge of spatial pooler, an integral component in the neocortexapi. The Spatial Pooler plays a pivotal role in converting input into Sparse Distributed Representations (SDRs), the newly updated version of the neocortexapi provided us with a highly efficient working model of a method called reconstruct (), which is capable of performing the inverse function of the spatial pooler.
 The ultimate goal of this experiment is to reconstruct the input provided to the spatial pooler through scalar encoders for numerical inputs and image binarizer for pictorial data. The entire experiment is performed in two sections, initially a scalar encoder or image binariser is used to feed into the spatial pooler such that it can produce the SDR and reach a stable state, and once the program reaches a stable state and the initiation of the next section begins, where the output from the Spatial Pooler function is fed into the reconstruct method and a resultant reconstructed SDR is produced.Then to verify and test the accuracy of the reconstruct method. The final step of the experiment is performed where comparisons were drawn by using different metrices(Jaccard Index) which can compare the similarity of the input SDR and reconstructed SDR  and then bitmaps were drawn from the input SDRs and the reconstructed SDRS and the visual similarity was compared.
+
 **[Go to top &uarr;](#Overview)**
   
 
