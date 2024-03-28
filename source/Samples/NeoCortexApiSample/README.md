@@ -111,9 +111,11 @@ The image underwent binarization, converting it into a one-dimensional array whi
 
 This project aims to deploy the Reconstruct functionality for integer and image inputs.
 1. The resultant Comparisons (similarities/Jaccard Index) for different MNIST Datasets [0,1,3,5].
+   
    ![Capture 9](https://github.com/Neel1097/Team-ByteBaite_neocortexapi/assets/60136654/fc60a3cb-90e3-46fb-89d6-52dd34114392)
 
 2. The results of Comparisons (Avg similarities/Jaccard Index) for different sets of integer values [100,300,500,700,1000].
+   
    ![Capture 7](https://github.com/Neel1097/Team-ByteBaite_neocortexapi/assets/60136654/0858572b-29c1-42a4-ae4a-8d96649cc3ea)
 
 
