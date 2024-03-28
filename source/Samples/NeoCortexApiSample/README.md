@@ -145,7 +145,7 @@ This project aims to implement the Reconstruct functionality for integer and ima
 
 2. The results of Comparisons (Avg similarities/Jaccard Index) for different sets of integer values [100,300,500,700,1000].
    
-   <img src="https://github.com/Neel1097/Team-ByteBaite_neocortexapi/assets/60136654/0858572b-29c1-42a4-ae4a-8d96649cc3ea" width="100" height="100">
+   <img src="https://github.com/Neel1097/Team-ByteBaite_neocortexapi/assets/60136654/0858572b-29c1-42a4-ae4a-8d96649cc3ea" width="600" height="400">
 
 
 **[Go to top &uarr;](#Overview)**
