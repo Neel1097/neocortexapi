@@ -96,16 +96,28 @@ Source: https://www.frontiersin.org/articles/10.3389/fncom.2017.00111/full
 
 # METHODOLGY
 #### There are in-total 10 Methods used in the Experiment :
-1. SpatialPatternLearning.cs.
-2. ReverseEngineerClass.cs
-3. Program.cs
-4. JaccardIndexCalculator.cs
-5. ImgBinarizer.cs
-6. ExperimentDirectorySetup.cs
-7. BitmapVisualizer.cs
-8. BitmapComparator.cs
-9. BinarySDRConverter.cs
+1. **SpatialPatternLearning.cs**-  This C# code showcases an experiment focusing on spatial pattern learning using the NeoCortex API. It utilizes the Hierarchical Temporal Memory (HTM) model, particularly the Spatial Pooler (SP) algorithm, to learn patterns from input data presented as scalar values. The script iteratively trains the SP on a range of input values, tracks its stability, and reconstructs input patterns for accuracy evaluation. Moreover, it calculates the Jaccard index and performs bitmap comparisons to gauge the similarity between original and reconstructed patterns.
+
+2. **ReverseEngineerClass.cs** - This C# code provides a method (`ReverseEngineerInput`) to reverse engineer potential input values from the output of a spatial pooler algorithm. It calculates the average permanence values for synapses connected to input indices, identifies potentially active inputs based on a threshold, and maps these indices back to original input values. Finally, it returns the average of potential input values as the reconstructed input.
+
+3. **Program.cs** -This C# code sample demonstrates a basic experiment framework for implementing the Spatial Pooler (SP) and Temporal Memory (TM) algorithms using the NeoCortexApi library. The program presents a console-based menu allowing users to choose between two experiment options:
+
+	* *Scalar Encoder Experiment:* Runs an experiment with scalar values using Scalar Encoder for encoding.
+	* *MNIST Image Experiment:* Runs an experiment with MNIST images using Image Binarizer for encoding.
+The user selects an option by entering a corresponding number. The chosen experiment is then executed accordingly. The code structure enables tracing and debugging through the experiment process.
+4. **JaccardIndexCalculator.cs** - This C# code defines a JaccardIndexCalculator class with a method to compute the Jaccard index between two Sparse Distributed Representations (SDRs), represented as integer arrays where 1 indicates an active bit and 0 indicates an inactive bit. The Jaccard index is calculated as the ratio of the intersection of active bits to the union of active bits between the two SDRs.
+
+5. **ImgBinarizer.cs** - This C# code utilizes the Daenet ImageBinarizerLib library to convert an input image into a binary array representation. The ImgBinarizer class provides a method Imgo() that takes an input image, specified by its file path, and converts it into a binary array with dimensions of 28x28 pixels. The resulting binary array is then flattened into a 1-dimensional integer array and returned. 
+
+6. **ExperimentDirectorySetup.cs** - This C# code defines a class called ExperimentDirectorySetup that facilitates setting up a directory for an experiment. Upon instantiation with an experiment name, it creates a directory with that name in the current directory, removing any existing directory with the same name. If successful, it returns the path of the created directory.
+
+7. **BitmapVisualizer.cs** - This C# code generates and draws a bitmap image from input data represented as a one-dimensional array. The input data is reshaped into a two-dimensional array, and then a bitmap is created based on this data. The resulting bitmap is saved to a specified output path. Optionally, text can be added to the image
+
+8. **BitmapComparator.cs** -This C# code defines a BitmapComparator class with a Compare method that calculates the similarity percentage between two input bitmaps by comparing corresponding pixels. The method ensures the bitmaps have the same dimensions and then iterates over each pixel, checking if the colors are identical. The similarity percentage is calculated based on the number of matching pixels relative to the total number of pixels.
+
+9. **BinarySDRConverter.cs** - This C# code defines a BinarySDRConverter class with a method ConvertToDouble that converts a binary sparse distributed representation (SDR) array into a double value.
     The link to all the classes mentioned above is given here -[Classes Link](https://github.com/Neel1097/Team-ByteBaite_neocortexapi/tree/master/source/Samples/NeoCortexApiSample)
+**[Go to top &uarr;] (#Overview) **
 ### Reconstruct Methods:
 The accuracy of reconstructing spatial patterns is assessed using a learning algorithm, with the Spatial Pooler (SP) serving as the core algorithm for pattern learning. This algorithm converts the input into a Sparse Distributed Representation (SDR). The latest version of the neocortex API introduces a novel function named Reconstruct (), designed to reverse the SP's operation by reconstructing the input from the SDR.
 
@@ -119,6 +131,7 @@ The Reconstruction of Input and the similarity of bitmaps obtained by:
 1. Reconstruct the input from activecol at Permanence Threshold (0.5)
 2. Generate the two bitmaps representing the input SDR and the reconstructed SDR.
 3. Bitmaps similarities.
+**[Go to top &uarr;] (#Overview) **
 
 ### Learning Phase For the image input: 
 
@@ -134,6 +147,7 @@ This project aims to deploy the Reconstruct functionality for integer and image 
 2. The results of Comparisons (Avg similarities/Jaccard Index) for different sets of integer values [100,300,500,700,1000].
    
    ![Capture 7](https://github.com/Neel1097/Team-ByteBaite_neocortexapi/assets/60136654/0858572b-29c1-42a4-ae4a-8d96649cc3ea)
+**[Go to top &uarr;] (#Overview) **
 
 
 
