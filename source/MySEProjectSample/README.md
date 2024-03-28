@@ -74,7 +74,7 @@ In the HTM framework, the Spatial Pooler (SP) is a component responsible for cre
 In the HTM framework, the Spatial Pooler (SP) is a component responsible for creating sparse distributed representations (SDR) of input data. The primary goal of the Spatial Pooler is to transform input patterns into a stable and sparse representation that subsequent stages of the neural network can easily use.  
 In the HTM framework, the Spatial Pooler (SP) is a component responsible for creating sparse distributed representations (SDR) of input data. The primary goal of the Spatial Pooler is to transform input patterns into a stable and sparse representation that subsequent stages of the neural network can easily use.  
 
-# SP Functions:
+## SP Functions:
 
 Here's a simplified explanation of the Spatial Pooler's function in the HTM context:
 1. Input Encoding: The SP takes in spatially and temporally encoded input patterns.
@@ -89,30 +89,30 @@ Source: https://www.frontiersin.org/articles/10.3389/fncom.2017.00111/full
  
  **[Go to top &uarr;] (#Overview) **
 
- # Reconstructing the SP algorithm:
+ ## Reconstructing the SP algorithm:
  
 To “Reconstruct the SP algorithm” you could use the information of the connected synapses lying in the SP data structure. The first step would be to get the synapses with the function getConnectedSynapses.
 Here is an example from the NuPIC Github repo:
 ![Capture](https://github.com/Neel1097/Team-ByteBaite_neocortexapi/assets/60136654/642e46ce-1018-4ea3-a278-2854aca7af32)
 
 
-## METHODOLGY
+# METHODOLGY
 
-# Reconstruct Methods:
+## Reconstruct Methods:
 The accuracy of reconstructing spatial patterns is assessed using a learning algorithm, with the Spatial Pooler (SP) serving as the core algorithm for pattern learning. This algorithm converts the input into a Sparse Distributed Representation (SDR). The latest version of the neocortex API introduces a novel function named Reconstruct (), designed to reverse the SP's operation by reconstructing the input from the SDR.
 
-# Phase of Reconstruction:
+## Phase of Reconstruction:
 
 During the reconstruction phase, the Reconstruct () method from the spatial pooler class is employed. This method accepts active columns as input and provides a list of columns corresponding to the active mini-columns. For each retrieved column, the sum of permanence is calculated across all synapses for every input index. Permanence denotes the strength of the connection between a column's synapse and the corresponding input index.
 
-# Learning Phase For the integer input: 
+## Learning Phase For the integer input: 
 
 The Reconstruction of Input and the similarity of bitmaps obtained by:
 1. Reconstruct the input from activecol at Permanence Threshold (0.5)
 2. Generate the two bitmaps representing the input SDR and the reconstructed SDR.
 3. Bitmaps similarities.
 
-# Learning Phase For the image input: 
+## Learning Phase For the image input: 
 
 The image underwent binarization, converting it into a one-dimensional array which was further transformed into a list. This list was then converted into a double numerical value using the "BinarySDRConverter" class before being fed into the Spatial pattern learning method to train the spatial pooler. The training process persisted until the spatial pooler achieved stability, with oversight from the HomeostaticPlasticityController (HPC) class.
 
