@@ -32,7 +32,7 @@ The experiment should show visually and mathematically the difference between th
 # Introduction:
  
  In this project, an experiment is performed that makes us indulge with the knowledge of spatial pooler, an integral component in the neocortexapi. The Spatial Pooler plays a pivotal role in converting input into Sparse Distributed Representations (SDRs), the newly updated version of the neocortexapi provided us with a highly efficient working model of a method called reconstruct (), which is capable of performing the inverse function of the spatial pooler.
-The ultimate goal of this experiment is to reconstruct the input provided to the spatial pooler through scalar encoders for numerical inputs and image binarizer for pictorial data. The entire experiment is performed in two sections, initially a scalar encoder or image binariser is used to feed into the spatial pooler such that it can produce the SDR and reach a stable state, and once the program reaches a stable state and the initiation of the next section begins, where the output from the Spatial Pooler function is fed into the reconstruct method to verify and test the accuracy of the reconstruct method. The final step of the experiment is to draw comparisons by using different metrices which can compare the similarity of the numbers or the images that were fed into the encoders with the final output received from the reconstruct () method.
+The ultimate goal of this experiment is to reconstruct the input provided to the spatial pooler through scalar encoders for numerical inputs and image binarizer for pictorial data. The entire experiment is performed in two sections, initially a scalar encoder or image binariser is used to feed into the spatial pooler such that it can produce the SDR and reach a stable state, and once the program reaches a stable state and the initiation of the next section begins, where the output from the Spatial Pooler function is fed into the reconstruct method and a resultant reconstructed SDR is produced.Then to verify and test the accuracy of the reconstruct method. The final step of the experiment is performed where comparisons were drawn by using different metrices(Jaccard Index) which can compare the similarity of the input SDR and reconstructed SDR  and then bitmaps were drawn from the input SDRs and the reconstructed SDRS and the visual similarity was compared.
 
   **[Go to top &uarr;] (#Overview)**
   
@@ -47,11 +47,17 @@ Hierarchical temporal memory (HTM) provides a theoretical framework that models 
 # HTM Encoder:
 
 Hierarchical Temporal Memory (HTM) offers a versatile and biologically accurate framework for addressing prediction, classification, and anomaly detection tasks across a diverse range of data types. HTM systems rely on Sparse Distributed Representations (SDRs) for data input, which differ significantly from conventional computer representations like ASCII for text, as they encode meaning directly into the representation. An SDR comprises mostly zeros with a few ones, with each one-bit carrying semantic meaning. If two SDRs share significant overlap in one-bits, they denote similar meanings. Consequently, the initial step in utilizing an HTM system involves converting a data source into an SDR using an encoder. The encoder transforms the data's native format into an SDR suitable for HTM system input, ensuring that similar input values produce highly overlapping SDRs by strategically determining which bits should be ones and which should be zeros to capture the data's important semantic characteristics.
+
 Source: https://www.researchgate.net/publication/301844094_Encoding_Data_for_HTM_Systems.
 
 # The Encoding Process:
 
-The encoding process is analogous to the functions of the sensory organs of humans and other animals. The cochlea, for instance, is a specialized structure that converts the frequencies and amplitudes of sounds in the environment into a sparse set of active neurons. The basic mechanism for this process comprises a set of inner hair cells organized in a row that are sensitive to different frequencies. When an appropriate sound frequency occurs, the hair cells stimulate neurons that send the signal to the brain. The set of neurons that are triggered in this manner comprises the encoding of the sound as a Sparse Distributed Representation. One important aspect of the cochlear encoding process is that each hair cell responds to a range of frequencies, and the ranges overlap with other nearby hair cells. This characteristic provides redundancy in case some hair cells are damaged but also means that a given frequency will stimulate multiple cells, and two sounds with similar frequencies will have some overlap in the cells that are stimulated. This overlap between representations is how the semantic similarity of the data is captured in the representation. Similarly, the design of an encoder is dependent on the type of data. The encoder must capture the semantic characteristics of the data that are important for your application. Source: https://www.researchgate.net/publication/301844094_Encoding_Data_for_HTM_Systems.
+The encoding process is analogous to the functions of the sensory organs of humans and other animals. The cochlea, for instance, is a specialized structure that converts the frequencies and amplitudes of sounds in the environment into a sparse set of active neurons. The basic mechanism for this process comprises a set of inner hair cells organized in a row that are sensitive to different frequencies. When an appropriate sound frequency occurs, the hair cells stimulate neurons that send the signal to the brain. The set of neurons that are triggered in this manner comprises the encoding of the sound as a Sparse Distributed Representation. One important aspect of the cochlear encoding process is that each hair cell responds to a range of frequencies, and the ranges overlap with other nearby hair cells. This characteristic provides redundancy in case some hair cells are damaged but also means that a given frequency will stimulate multiple cells, and two sounds with similar frequencies will have some overlap in the cells that are stimulated. This overlap between representations is how the semantic similarity of the data is captured in the representation. Similarly, the design of an encoder is dependent on the type of data. The encoder must capture the semantic characteristics of the data that are important for your application.
+Source: https://www.researchgate.net/publication/301844094_Encoding_Data_for_HTM_Systems.
+In this experiment, we are using two types of encoders:
+1. **Scalar Encoder** -  Scalars are single numerical values, such as integers or floating-point numbers.The purpose of a Scalar Encoder is to transform these scalar values into a distributed representation, where each scalar value is encoded into a pattern of binary bits. This encoding allows the representation of scalar values in a way that captures relationships and similarities between them, facilitating pattern recognition and analysis tasks. We have used this Encoder to perform the encoders of randomly generated number such that we can feed that to our Spatial Pooler algorithm.
+For more details check this link-[Encoders](https://github.com/Subham2901/neocortexapi/blob/master/source/Documentation/Encoders.md).
+2. **Image Binariser** - We have utilised image binariser for the second case of our experiment, where we have tested the Reconstruct() method's reconstruction capability using a single MNIST handwritten digit, to convert the image into a one dimensional array of binarised data( i.e 0s and 1s) we used a image binariser as an encoder instead of a scalar encoder. 
 
 # Sparse Distributed Representation (SDR):
  
@@ -71,6 +77,7 @@ According to recent findings in neuroscience, the brain processes information us
 In the HTM framework, the Spatial Pooler (SP) is a component responsible for creating sparse distributed representations (SDR) of input data. The primary goal of the Spatial Pooler is to transform input patterns into a stable and sparse representation that subsequent stages of the neural network can easily use.  
 In the HTM framework, the Spatial Pooler (SP) is a component responsible for creating sparse distributed representations (SDR) of input data. The primary goal of the Spatial Pooler is to transform input patterns into a stable and sparse representation that subsequent stages of the neural network can easily use.  
 In the HTM framework, the Spatial Pooler (SP) is a component responsible for creating sparse distributed representations (SDR) of input data. The primary goal of the Spatial Pooler is to transform input patterns into a stable and sparse representation that subsequent stages of the neural network can easily use. 
+For a detailed implementation guide please refer to this link - [Link](https://github.com/ddobric/neocortexapi/blob/master/source/Documentation/SpatialPooler.md).
 
 # SP Functions:
 
@@ -88,26 +95,36 @@ Source: https://www.frontiersin.org/articles/10.3389/fncom.2017.00111/full
  **[Go to top &uarr;] (#Overview) **
 
 # METHODOLGY
-
-## Reconstruct Methods:
+#### There are in-total 10 Methods used in the Experiment :
+1. SpatialPatternLearning.cs.
+2. ReverseEngineerClass.cs
+3. Program.cs
+4. JaccardIndexCalculator.cs
+5. ImgBinarizer.cs
+6. ExperimentDirectorySetup.cs
+7. BitmapVisualizer.cs
+8. BitmapComparator.cs
+9. BinarySDRConverter.cs
+    The link to all the classes mentioned above is given here -[Classes Link](https://github.com/Neel1097/Team-ByteBaite_neocortexapi/tree/master/source/Samples/NeoCortexApiSample)
+### Reconstruct Methods:
 The accuracy of reconstructing spatial patterns is assessed using a learning algorithm, with the Spatial Pooler (SP) serving as the core algorithm for pattern learning. This algorithm converts the input into a Sparse Distributed Representation (SDR). The latest version of the neocortex API introduces a novel function named Reconstruct (), designed to reverse the SP's operation by reconstructing the input from the SDR.
 
-## Phase of Reconstruction:
+### Phase of Reconstruction:
 
 During the reconstruction phase, the Reconstruct () method from the spatial pooler class is employed. This method accepts active columns as input and provides a list of columns corresponding to the active mini-columns. For each retrieved column, the sum of permanence is calculated across all synapses for every input index. Permanence denotes the strength of the connection between a column's synapse and the corresponding input index.
 
-## Learning Phase For the integer input: 
+### Learning Phase For the integer input: 
 
 The Reconstruction of Input and the similarity of bitmaps obtained by:
 1. Reconstruct the input from activecol at Permanence Threshold (0.5)
 2. Generate the two bitmaps representing the input SDR and the reconstructed SDR.
 3. Bitmaps similarities.
 
-## Learning Phase For the image input: 
+### Learning Phase For the image input: 
 
 The image underwent binarization, converting it into a one-dimensional array which was further transformed into a list. This list was then converted into a double numerical value using the "BinarySDRConverter" class before being fed into the Spatial pattern learning method to train the spatial pooler. The training process persisted until the spatial pooler achieved stability, with oversight from the HomeostaticPlasticityController (HPC) class.
 
-## Findings:
+### Findings:
 
 This project aims to deploy the Reconstruct functionality for integer and image inputs.
 1. The resultant Comparisons (similarities/Jaccard Index) for different MNIST Datasets [0,1,3,5].
