@@ -5,7 +5,7 @@
 
 ### An experiment to demonstrate how the reconstruction method recreates the images and texts learned by the Spatial Pooler method using C#.
 
-* [Overview](#Overview)
+## Overview:
 * [Problem Statement](#Problem-Statement)
 * [Introduction](#Introduction)
 	* [Hierarchical temporal memory](#Hierarchical-temporal-memory)
