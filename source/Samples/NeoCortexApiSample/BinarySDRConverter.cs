@@ -1,8 +1,15 @@
-﻿
-using System;
+﻿using System;
 
+/// <summary>
+/// Class for converting Binary Sparse Distributed Representation (SDR) to double value.
+/// </summary>
 public class BinarySDRConverter
 {
+    /// <summary>
+    /// Converts a Binary SDR to its equivalent double value.
+    /// </summary>
+    /// <param name="binarySDR">The Binary SDR array.</param>
+    /// <returns>The double value representing the Binary SDR.</returns>
     public double ConvertToDouble(int[] binarySDR)
     {
         double value = 0;

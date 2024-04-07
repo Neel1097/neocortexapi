@@ -1,16 +1,26 @@
-﻿
-using System;
+﻿using System;
 using System.IO;
 
+/// <summary>
+/// Class to set up directory structure for experiments.
+/// </summary>
 public class ExperimentDirectorySetup
 {
     private readonly string experimentName;
 
+    /// <summary>
+    /// Constructor for ExperimentDirectorySetup class.
+    /// </summary>
+    /// <param name="experimentName">Name of the experiment.</param>
     public ExperimentDirectorySetup(string experimentName)
     {
         this.experimentName = experimentName;
     }
 
+    /// <summary>
+    /// Sets up experiment directory.
+    /// </summary>
+    /// <returns>The path of the created directory.</returns>
     public string SetupExperimentDirectory()
     {
         string outFolder = experimentName;

@@ -1,12 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 
+/// <summary>
+/// Class for calculating Jaccard Index between two Sparse Distributed Representations (SDRs).
+/// </summary>
 public class JaccardIndexCalculator
 {
-    // Method to calculate the Jaccard index between two SDRs
+    /// <summary>
+    /// Calculates the Jaccard Index between two SDRs.
+    /// </summary>
+    /// <param name="sdr1">The first SDR.</param>
+    /// <param name="sdr2">The second SDR.</param>
+    /// <returns>The Jaccard Index between the two SDRs.</returns>
+    /// <exception cref="ArgumentException">Thrown when SDRs have different lengths.</exception>
     public double CalculateJaccardIndex(int[] sdr1, int[] sdr2)
     {
+        // Calculate Jaccard Index: Intersection count divided by Union count.
+        // Jaccard Index measures similarity between sets by comparing intersection to union.
+
+        // If SDRs have different lengths, throw ArgumentException.
         if (sdr1.Length != sdr2.Length)
         {
             throw new ArgumentException("SDRs must have the same length.");
@@ -16,6 +27,7 @@ public class JaccardIndexCalculator
         int intersection = 0;
         int union = 0;
 
+        // Iterate through elements of SDRs
         for (int i = 0; i < sdr1.Length; i++)
         {
             if (sdr1[i] == 1 && sdr2[i] == 1)
