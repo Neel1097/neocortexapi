@@ -3,7 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 public class ReverseEngineerClass
 {
-    // Example function to reverse engineer the original input from spatial pooler output
+    /// <summary>
+    /// Function to reverse engineer the original input from spatial pooler output
+    /// </summary>
+    /// <param name="permanences"></param>
+    /// <param name="inputLength"></param>
+    /// <returns></returns>
     public double ReverseEngineerInput(Dictionary<int, double> permanences, int inputLength)
     {
         // Create a list to store potential input values
@@ -26,13 +31,13 @@ public class ReverseEngineerClass
             }
         }
 
-        // If no potential inputs were found, return a default value
+        /// If no potential inputs were found, return a default value
         if (potentialInputs.Count == 0)
         {
             return DefaultValue;
         }
 
-        // Calculate the average of potential input values and return it as the reconstructed input
+        /// Calculate the average of potential input values and return it as the reconstructed input
         return potentialInputs.Average();
     }
 
@@ -48,14 +53,20 @@ public class ReverseEngineerClass
         return avgPermanence;
     }
 
-    // Example function to map an input index back to the original input value (simplified)
+    /// <summary>
+    /// Example function to map an input index back to the original input value (simplified)
+    /// </summary>
+    /// <param name="index"></param>
+    /// <returns></returns>
     private double MapIndexToInput(int index)
     {
         // Scaling factor for mapping index to input value
         return index * ScalingFactor;
     }
 
-    // Constants
+    /// <summary>
+    /// Constants
+    /// </summary>
     private const double Threshold = 0.5; // Permanence threshold to consider a synapse as active
     private const double DefaultValue = 0.0; // Default value if no potential input is found
     private const double ScalingFactor = 0.1; 
